@@ -5,6 +5,8 @@ body{
 	justify-content: center;
 	height: 100vh;
     margin: 0;  
+	font-family: Tahoma; 
+	font-size:14px;
 }
 
 .box:first-child {
@@ -17,7 +19,7 @@ body{
 	text-align: center;
 	width: 250px;
 	cursor: pointer;
-	font-family: Tahoma; 
+	
 	font-size:14px;
 	
  }
@@ -76,3 +78,41 @@ body{
 	opacity: 1;
 	transform: scale(1,1);
 }
+
+.form{
+	color:#29cc90;
+}
+.form td{
+	padding:5px;
+	text-align: right;
+}
+
+
+.form input, .form select{
+	height: 30px;
+	border:1px solid #20795f;
+	background-color: #24272e;
+	color:#29cc90;
+}
+
+.form select{
+	height:35px;
+	width:100%
+}
+
+@-moz-document url-prefix() {
+	.form select{
+		width:calc(100% - 12px)
+	}
+  }
+
+
+.form input:focus, .form select:focus{
+	outline: 0;
+	border:1px solid #29cc90;
+}
+
+#menu{
+	cursor:pointer;
+}
+
