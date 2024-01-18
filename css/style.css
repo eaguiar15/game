@@ -87,6 +87,9 @@ body{
 	text-align: right;
 }
 
+.form tr:last-child td{
+	text-align: center;
+}
 
 .form input, .form select{
 	height: 30px;
