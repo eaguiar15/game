@@ -1,4 +1,78 @@
 body{
-	background:black;
+	background-color: #24272e;
+	display: flex;   
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+    margin: 0;  
+}
+
+.box:first-child {
+	margin-top:-20px;
+ } 
+
+ .btn {
+	line-height: 50px;
+	height: 50px;
+	text-align: center;
+	width: 250px;
+	cursor: pointer;
+	font-family: Tahoma; 
+	font-size:14px;
+	
+ }
+
+ .btn-primary {
+	color: #FFF;
+	color:#29cc90;
+	transition: all 0.5s;
+	position: relative;
+	margin-top: 10px;
+	
+ }
+
+ .btn-primary:hover{
+	background-color: rgba(29, 204, 144,0.15);
 	color:white;
+ }
+
+ .btn-primary:active{
+	background-color: rgba(29, 204, 144,0.30);
+	
+ }
+
+ .btn-primary::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	border:1px solid rgba(29, 204, 144,0.5);
+	transition: all 0.3s;
+}
+
+.btn-primary:hover::before {
+	opacity: 0 ;
+	transform: scale(0.5,0.5);
+	
+}
+.btn-primary::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	opacity: 0;
+	transition: all 0.3s;
+	border: 1px solid rgba(29, 204, 144,0.5);
+	transform: scale(1.2,1.2);
+}
+
+.btn-primary:hover::after {
+	opacity: 1;
+	transform: scale(1,1);
 }
