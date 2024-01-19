@@ -134,12 +134,6 @@ i{
 	margin-top: 16px;
   }
 
-
-
-
-
-
-
  #header {
 	position: absolute;
 	top: 0px;
@@ -153,7 +147,7 @@ i{
 	width: 100%;
 	height: calc(100% - (50px + 165px + 100px));
 	position: absolute;
-	top:55px;
+	margin-top:55px;
 	display: flex;   
 	align-items: center;
 	justify-content: center;
@@ -162,7 +156,7 @@ i{
 
 #bet{
 	position: absolute;
-	width:100%;
+	width:calc(100% - 25px);
 	bottom: 161px;
 	left:0;
 	height:115px;
