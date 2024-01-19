@@ -18,24 +18,23 @@
     margin-top:15px;
 }
 
-/* .div-bet{
-    display:flex;
+#bet div:nth-child(2){
     width:100%;
-    border:1px solid orange;
-    margin-top:100px;
-}
-
-.div-bet div{
-    width:200px;
-    margin: 0 auto;
-}
-
-.div-bet div:nth-child(2){
-    color:#29cc90;
-    width:75px;
+    display:flex;
     align-items: center;
     justify-content: center;
-    display: flex;
-} */
+}
+
+#bet div:nth-child(2) div{
+   width:200px;
+}
+
+#bet div:nth-child(2) div:nth-child(2){
+    width:100px;
+    color:#29cc90;
+    margin-top:10px;
+    white-space: nowrap;
+ }
+
 
 
