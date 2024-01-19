@@ -1,0 +1,41 @@
+.table {
+    position: relative;
+    min-width: 550px;
+    min-height: 275px;
+    background-color: #191c21; 
+    border-radius: 105px;
+    border:2px solid #20795f;
+    z-index: 0;
+}
+
+#bet div:first-child{
+    width:100%;
+    text-align: center;
+}
+
+#bet input{
+    width:250px;
+    margin-top:15px;
+}
+
+/* .div-bet{
+    display:flex;
+    width:100%;
+    border:1px solid orange;
+    margin-top:100px;
+}
+
+.div-bet div{
+    width:200px;
+    margin: 0 auto;
+}
+
+.div-bet div:nth-child(2){
+    color:#29cc90;
+    width:75px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+} */
+
+

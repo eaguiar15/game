@@ -136,14 +136,9 @@ i{
 
 
 
-  #footer {
-	position: absolute;
-	bottom: 0;
-	left: 0; 
-	border-top:1px solid #20795f;
-	height:50px;
-	width:100%;
-  }
+
+
+
 
  #header {
 	position: absolute;
@@ -156,7 +151,7 @@ i{
 
 #container {
 	width: 100%;
-	height: calc(100% - (50px + 160px));
+	height: calc(100% - (50px + 165px + 100px));
 	position: absolute;
 	top:55px;
 	display: flex;   
@@ -165,16 +160,32 @@ i{
 	overflow-y: auto;
 }
 
+#bet{
+	position: absolute;
+	width:100%;
+	bottom: 161px;
+	left:0;
+	height:115px;
+}
+
 #footer {
 	position: absolute;
-	height:160px;
+	bottom: 0;
+	left: 0; 
+	border-top:1px solid #20795f;
 	color:#29cc90;
+	height:160px;
+	width:100%;
 	font-size:13px;
 	font-family: courier;
 }
 
+#footer i:hover{
+	color:white;
+}
+
 #footer input{
-	width:calc(100% - 30px - 30px);
+	width:calc(100% - 30px - 30px );
 	background-color: #24272e;
 	height:25px;
 	border:0;

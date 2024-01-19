@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/game.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 </head>
 <body>
@@ -44,7 +45,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<div class="btn btn-primary">
+						<div class="btn btn-primary" onclick="menu(this)">
 							<span>Criar Jogo</span>
 						</div>
 					</td>
@@ -65,9 +66,10 @@
 					<td><input type="number" name="P_ID_GAME" placeholder="Informe o ID do Jogo" ></td>
 				</tr>
 				<tr>
-					<td>Posição</td>
+					<td>Player</td>
 					<td>
 						<select>
+							<option>1</option>
 							<option>2</option>
 							<option>3</option>
 							<option>4</option>
@@ -84,7 +86,7 @@
 				
 				<tr>
 					<td colspan="2">
-						<div class="btn btn-primary">
+						<div class="btn btn-primary" onclick="menu(this)">
 							<span>Entrar na Partida</span>
 						</div>
 					</td>
@@ -93,13 +95,30 @@
 		</form>
 	</div>
 	<div class="box" id="tab-table-game" style="display:none">
-		<div class="btn btn-primary">
-			<span>Entrar na Partida</span>
-		  </div>
+		<div class="table">
+
+		</div>
+		
 	</div>
 	
 </div>
-
+<div id="bet"  style="display:none">
+	<div>
+		<input type=range>
+	</div>
+	<div>
+		<div class="btn btn-primary">
+			<span>Fold</span>
+		</div>
+		
+		<div>
+			10.00 R$
+		</div>
+		<div class="btn btn-primary">
+			<span>Aposta</span>
+		</div> 
+	</div>
+</div>
 <div id="footer">
 	<div id="console">
 		10:40:12 >> Partida Iniciada<br>
@@ -118,10 +137,12 @@
 	<div id="text-message">
 		<input type="text" placeholder=">> Digite uma mensagem para enviar a outros players.">
 		<i class="fas fa-forward" title="Enviar Mensagem" ></i>
-		<i class="fas fa-forward" title="Tela Cheia" onclick="toggleFullScreen()"></i>
+		<i class="fas fa-desktop" title="Tela Cheia" onclick="toggleFullScreen()"></i>
+		<!-- <i class="fas fa-eye-slash"></i> -->
 	</div>
 
-</div>	
+</div>
+	
 </body>
 </html>
 <script src="js/generic.js"></script>

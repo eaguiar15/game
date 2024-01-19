@@ -54,13 +54,22 @@ function getParam(paramName) {
           show("tab-join-game");
           document.forms[1].P_ID_GAME.focus();
           break;
+        case "Criar Jogo":
+            hide("tab-create-game");
+            show("tab-table-game");
+            show("bet");
+            break;
+        case "Entrar na Partida":
+                hide("tab-join-game");
+                show("tab-table-game");
+                show("bet");
+                break;
         default:
             show("tab-menu");
             hide("tab-create-game");
             hide("tab-join-game");
           break;
       }
-      console.log("essa IDE é foda");
 }
 
 
