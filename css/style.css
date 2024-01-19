@@ -158,14 +158,14 @@ i{
 	position: absolute;
 	width:calc(100% - 25px);
 	bottom: 161px;
-	left:0;
+	left: 5px;
 	height:115px;
 }
 
 #footer {
 	position: absolute;
 	bottom: 0;
-	left: 0; 
+	left: 5; 
 	border-top:1px solid #20795f;
 	color:#29cc90;
 	height:160px;
