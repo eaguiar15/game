@@ -2,62 +2,125 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 </head>
 <body>
-	
-	<div class="box" id="tab-menu" style="display:noe">
+<div id="header">
+	<div class="message" id="message"> 
+        
+        <p>Seja bem vindo, crie uma partida ou ingresse em uma já iniciada.</p>
+    </div>
+</div>
+<div id="container">
+	<div class="box" id="tab-menu" style="display:">
 		<div class="btn btn-primary" onclick="menu(this)">
 		  <span >Criar Partida</span>
 		</div>
-		<div class="btn btn-primary">
+		<div class="btn btn-primary"  onclick="menu(this)">
 		  <span>Entrar Partida</span>
 		</div>
 		<div class="btn btn-primary">
-		  <span>Login</span>
-		</div>
-		<div class="btn btn-primary">
-		  <span>Cadastrar</span>
+		  <span>Regras</span>
 		</div>
 	</div>
 	<div class="box" id="tab-create-game" style="display:none">
-		<table class="form">
-			<td>
-				<td colspan=2>
-					<span id="menu" onclick="menu(this)">MENU</span>
-				</td>
-			</td>
-			<tr>
-				<td>Jogadores</td>
-				<td><select>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-					<option>6</option>
-					<option>7</option>
-					<option>8</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td>Valor </td>
-				<td><input type="number" value="100"></td>
-			</tr>
-			<tr>
-				<td>Valor Pote</td>
-				<td><input type="number" value="2.5"></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<div class="btn btn-primary">
-						<span>Criar Jogo</span>
-					  </div>
-				</td>
-			</tr>
-		</table>
-
+		<form>
+			<table class="form">
+				<tr>
+					<td colspan=2>
+						<i class="fas fa-bars" onclick="menu(this)" title="Voltar"></i>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>Valor </td>
+					<td><input type="number" value="100"></td>
+				</tr>
+				<tr>
+					<td>Valor Pote</td>
+					<td><input type="number" value="2.5"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div class="btn btn-primary">
+							<span>Criar Jogo</span>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
+	<div class="box" id="tab-join-game" style="display:none">
+		<form name="tab-join-game">
+			<table class="form">
+				<tr>
+					<td colspan=2>
+						<i class="fas fa-bars" onclick="menu(this)" title="Voltar"></i>
+					</td>
+				</tr>
+				<tr>
+					<td>ID Jogo </td>
+					<td><input type="number" name="P_ID_GAME" placeholder="Informe o ID do Jogo" ></td>
+				</tr>
+				<tr>
+					<td>Posição</td>
+					<td>
+						<select>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>IA</td>
+					<td><select>
+						<option>Não</option>
+						<option>Sim</option>
+					</select></td>
+				</tr>
+				
+				<tr>
+					<td colspan="2">
+						<div class="btn btn-primary">
+							<span>Entrar na Partida</span>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div class="box" id="tab-table-game" style="display:none">
+		<div class="btn btn-primary">
+			<span>Entrar na Partida</span>
+		  </div>
+	</div>
+	
+</div>
+
+<div id="footer">
+	<div id="console">
+		10:40:12 >> Partida Iniciada<br>
+		10:40:13 >> Rodada #2 iniciada<br>
+		10:40:14 >> Jogada #4<br>
+		10:40:14 >> Player 2 vence Banca<br>
+		10:40:16 >> mensagem<br>
+		10:40:17 >> mensagem<br>
+		10:40:17 >> mensagem<br>
+		10:40:18 >> mensagem<br>
+		10:40:18 >> mensagem<br>
+		10:40:19 >> mensagem<br>
+		10:40:22 >> mensagem<br>
+		10:40:25 >> mensagem<br>
+	</div>
+	<div id="text-message">
+		<input type="text" placeholder=">> Digite uma mensagem para enviar a outros players.">
+		<i class="fas fa-forward" title="Enviar Mensagem"></i>
+	</div>
+
+</div>	
 </body>
 </html>
 <script src="js/generic.js"></script>
