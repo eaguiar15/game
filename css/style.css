@@ -174,7 +174,7 @@ i{
 }
 
 #footer input{
-	width:calc(100% - 30px);
+	width:calc(100% - 30px - 30px);
 	background-color: #24272e;
 	height:25px;
 	border:0;
