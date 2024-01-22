@@ -11,9 +11,9 @@
     background-size: cover;
     border:20px solid rgba(24, 23, 23, 0.932);
     box-shadow: 0 0 5px 0px;
-    filter: drop-shadow(0 0 20px rgba(29, 204, 144,0.50)); 
+    filter: drop-shadow(0 0 15px rgba(29, 204, 144,0.50)); 
     margin-top:-75px;
-    /* opacity: 0.09; */
+     opacity: 0.70; 
 }
 
 .table-in{
@@ -25,8 +25,36 @@
     margin-left: 50px;
     margin-top:20px;
     margin-right:40px;
+    z-index: -1;
 }
 
+.player{
+    position: relative;
+    width:60px;
+    height:60px;
+    border-radius:50px;
+    background-color: #2c3e50;
+    background-color: transparent;
+    border: 2px solid rgba(169, 169, 169, 0.623);/* rgba(161, 165, 167, 0.685);*/
+    box-shadow: 0 0 15px 0px;
+    filter: drop-shadow(1px 1px 1px rgba(238, 100, 8, 0.856)); 
+}
+
+.player div{
+    position: absolute;
+    width:65px;
+    height:100px;
+    background-color: #191c21;
+    opacity: 0.75;
+}
+
+.p1{
+    position: absolute;
+    background-image: url('../img/players/p1.jpg');
+    background-size: cover;
+    left:calc(550px / 2 - (60px / 2) - 15px);
+    top:calc(275px - 45px)
+}
 
 #bet div:first-child{
     width:100%;
