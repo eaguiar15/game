@@ -146,8 +146,9 @@ i{
 #container {
 	width: 100%;
 	height: calc(100% - (50px + 165px + 100px));
+	height: 75vh;
 	position: absolute;
-	margin-top:55px;
+	/* margin-top:55px; */
 	display: flex;   
 	align-items: center;
 	justify-content: center;
@@ -166,7 +167,7 @@ i{
 	position: absolute;
 	bottom: 0;
 	left: 5; 
-	border-top:1px solid #20795f;
+	border-top:1px solid #33343a;
 	color:#29cc90;
 	height:160px;
 	width:100%;
