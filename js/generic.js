@@ -40,16 +40,16 @@ function getParam(paramName) {
   }
 
  function showConsole(icon){
+      
       if(icon.className == "fas fa-eye-slash"){
           getElem("console").style.display = "";
           getElem("footer").style.height = "165px";
-          getElem("footer").style.height = "90px";
-          getElem("bet").style.top = "60vh";
+          getElem("bet").style.bottom = "161px";
           icon.setAttribute("class","fas fa-eye");
         }else{
           getElem("console").style.display = "none";
           getElem("footer").style.height = "40px";
-          getElem("bet").style.top = "78vh";
+          getElem("bet").style.bottom = "40px";
           icon.setAttribute("class","fas fa-eye-slash");
       }
  } 

@@ -58,14 +58,14 @@
 
  @media (max-width: 600px) {
 	.table{
-        height:400px;
+        height:475px;
         width: 300px;
         border-radius: 150px;
         margin-top:0px;
     }
     .table-in{
         margin: 23px; 
-        height: 349px;
+        height: 425px;
         width: 250px;
         border-radius: 120px;
     }
