@@ -2,12 +2,31 @@
     position: relative;
     width: 550px;
     height: 275px;
+    border-radius: 150px;
     background-color: #191c21; 
-    border-radius: 105px;
     border:2px solid #20795f;
-    margin-top: -100px;
-    /* z-index: 0; */
+    /* background-image: url('https://media.istockphoto.com/id/1092139474/pt/foto/empty-green-casino-poker-table-cloth-with-spotlight.jpg?s=1024x1024&w=is&k=20&c=Dae6Nn2sscqo77siG7KF15MRCJeNb7nJwNPLl7uqX1o='); */
+    /* background-image: url('https://media.istockphoto.com/id/1046326882/pt/foto/poker-table.webp?s=1024x1024&w=is&k=20&c=fJA6vfSLxBTZ2OmzzS8IXromqP9rkmXuCRwULAQqP-s='); */
+    background-image: url('../img/table2.png'); 
+    background-size: cover;
+    border:20px solid rgba(24, 23, 23, 0.932);
+    box-shadow: 0 0 5px 0px;
+    filter: drop-shadow(0 0 20px rgba(29, 204, 144,0.50)); 
+    margin-top:-75px;
+    opacity: 0.7;
 }
+
+.table-in{
+    position: absolute;
+    width: 445px;
+    height: 230px;
+    border:1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 170px;
+    margin-left: 50px;
+    margin-top:20px;
+    margin-right:40px;
+}
+
 
 #bet div:first-child{
     width:100%;
@@ -37,5 +56,20 @@
     white-space: nowrap;
  }
 
+ @media (max-width: 600px) {
+	.table{
+        height:400px;
+        width: 300px;
+        border-radius: 150px;
+        margin-top:0px;
+    }
+    .table-in{
+        margin: 23px; 
+        height: 349px;
+        width: 250px;
+        border-radius: 120px;
+    }
+    
 
+}
 

@@ -8,14 +8,8 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 </head>
 <body>
-<!-- <div id="header">
-	<div class="message" id="message"> 
-        
-        <p>Seja bem vindo, crie uma partida ou ingresse em uma já iniciada.</p>
-    </div>
-</div> -->
 <div id="container">
-	<div class="box" id="tab-menu" style="display:">
+	<div id="tab-menu" style="display:none">
 		<div class="btn btn-primary" onclick="menu(this)">
 		  <span >Criar Partida</span>
 		</div>
@@ -28,82 +22,80 @@
 	</div>
 	<div class="box" id="tab-create-game" style="display:none">
 		<form>
-			<table class="form">
-				<tr>
-					<td colspan=2>
-						<i class="fas fa-bars" onclick="menu(this)" title="Voltar"></i>
-					</td>
-				</tr>
-				
-				<tr>
-					<td>Valor </td>
-					<td><input type="number" value="100"></td>
-				</tr>
-				<tr>
-					<td>Valor Pote</td>
-					<td><input type="number" value="2.5"></td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<div class="btn btn-primary" onclick="menu(this)">
-							<span>Criar Jogo</span>
-						</div>
-					</td>
-				</tr>
-			</table>
+			<div>
+				<i class="fas fa-bars" onclick="menu(this)" title="Voltar"></i>
+			</div>
+			<div>
+				<label for="valor">Valor</label>
+			</div>
+			<div>
+            	<input type="number" id="valor" name="valor" required>
+			</div>
+			<div>
+            <label for="valorPote">Valor do pote</label>
+			</div>
+			<div>
+            <input type="number" id="valorPote" name="valorPote" required>
+			</div>
+			<br>
+			<div class="btn btn-secondary" onclick="menu(this)">
+				<span>Criar Jogo</span>
+			</div>
 		</form>
 	</div>
 	<div class="box" id="tab-join-game" style="display:none">
-		<form name="tab-join-game">
-			<table class="form">
-				<tr>
-					<td colspan=2>
-						<i class="fas fa-bars" onclick="menu(this)" title="Voltar"></i>
-					</td>
-				</tr>
-				<tr>
-					<td>ID Jogo </td>
-					<td><input type="number" name="P_ID_GAME" placeholder="Informe o ID do Jogo" ></td>
-				</tr>
-				<tr>
-					<td>Player</td>
-					<td>
-						<select>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>IA</td>
-					<td><select>
-						<option>Não</option>
-						<option>Sim</option>
-					</select></td>
-				</tr>
-				
-				<tr>
-					<td colspan="2">
-						<div class="btn btn-primary" onclick="menu(this)">
-							<span>Entrar na Partida</span>
-						</div>
-					</td>
-				</tr>
-			</table>
+		<form name="form-join-game">
+			<div>
+				<i class="fas fa-bars" onclick="menu(this)" title="Voltar"></i>
+			</div>
+			<div>
+				<label>ID Jogo</label>
+			</div>
+			<div>
+            	<input type="number" name="P_ID_GAME" placeholder="Informe o ID do Jogo" required>
+			</div>
+			<div>
+				<label>Player</label>
+			</div>
+			<div>
+				<select>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					<option>6</option>
+					<option>7</option>
+					<option>8</option>
+				</select>
+			</div>
+			<div>
+				<label>IA</label>
+			</div>
+			<div>
+				<select>
+					<option>Não</option>
+					<option>Sim</option>
+				</select>
+			</div>
+			<br>
+			<div class="btn btn-secondary" onclick="menu(this)">
+				<span>Entrar na Partida</span>
+			</div>
 		</form>
+		
 	</div>
-	<div class="box" id="tab-table-game" style="display:none">
+	<div class="box" id="tab-table-game" style="display:block">
 		<div class="table">
-
+			<div class="table-in"></div>
 		</div>
 		
 	</div>
 	
 </div>
-<div id="bet"  style="display:none">
-	<div>
+<div id="bet"  style="display:block">
+
+	 <div>
 		<input type=range>
 	</div>
 	<div>
@@ -114,10 +106,15 @@
 		<div>
 			10.00 R$
 		</div>
-		<div class="btn btn-primary">
+		<div class="btn btn-secondary">
 			<span>Aposta</span>
 		</div> 
-	</div>
+	</div> 
+	<!--<div>
+		<div class="btn btn-primary">
+			<span>Iniciar Jogo</span>
+		</div> 
+	</div>-->
 </div>
 <div id="footer">
 	<div id="console">
@@ -137,8 +134,8 @@
 	<div id="text-message">
 		<input type="text" placeholder=">> Digite uma mensagem para enviar a outros players.">
 		<i class="fas fa-forward" title="Enviar Mensagem" ></i>
+		<i class="fas fa-eye" title="Ocultar console" onclick="showConsole(this)"></i>  
 		<i class="fas fa-desktop" title="Tela Cheia" onclick="toggleFullScreen()"></i>
-		<!-- <i class="fas fa-eye-slash"></i> -->
 	</div>
 
 </div>

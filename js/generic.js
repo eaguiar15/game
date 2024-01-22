@@ -29,18 +29,30 @@ function getParam(paramName) {
  }
 
  function toggleFullScreen() {
-    // Verifica se o modo de tela cheia está ativado.
-    if (!document.fullscreenElement && // alternative standard method
+    if (!document.fullscreenElement && 
       !document.mozFullScreenElement &&
       !document.webkitFullscreenElement &&
       !document.msFullscreenElement) {
-      // Ativa o modo de tela cheia para o documento inteiro.
       document.documentElement.requestFullscreen();
     } else {
-      // Sai do modo de tela cheia.
       document.exitFullscreen();
     }
   }
+
+ function showConsole(icon){
+      if(icon.className == "fas fa-eye-slash"){
+          getElem("console").style.display = "";
+          getElem("footer").style.height = "165px";
+          getElem("footer").style.height = "90px";
+          getElem("bet").style.top = "60vh";
+          icon.setAttribute("class","fas fa-eye");
+        }else{
+          getElem("console").style.display = "none";
+          getElem("footer").style.height = "40px";
+          getElem("bet").style.top = "78vh";
+          icon.setAttribute("class","fas fa-eye-slash");
+      }
+ } 
 
  function menu(pOpt){
     pOpt = pOpt.innerText;
