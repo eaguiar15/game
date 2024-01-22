@@ -42,13 +42,11 @@ function getParam(paramName) {
  function showConsole(icon){
       
       if(icon.className == "fas fa-eye-slash"){
-          getElem("console").style.display = "";
-          getElem("footer").style.height = "165px";
-          getElem("bet").style.bottom = "161px";
+          getElem("console").style.display = "block";
+          getElem("bet").style.bottom = "120px";
           icon.setAttribute("class","fas fa-eye");
         }else{
           getElem("console").style.display = "none";
-          getElem("footer").style.height = "40px";
           getElem("bet").style.bottom = "40px";
           icon.setAttribute("class","fas fa-eye-slash");
       }

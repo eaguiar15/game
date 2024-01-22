@@ -177,21 +177,44 @@ form select{
 #bet{
     position: absolute;
 	width:calc(100% - 25px);
-	bottom: 161px;
+	bottom: calc(80px + 40px);
 	left: 5px;
 	height:115px;
 }
 
+#console{
+	position: absolute;
+	bottom:40px;
+	overflow-y: auto;
+	height:80px;
+	width:100%;
+	font-family: courier;
+	color:#29cc90;
+	font-size:13px;
+	border-top:1px solid #474952;
+}
+
+#console div{
+	margin-left:25px;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+#console span:first-child{
+	padding-top:5px;
+}
+
 #footer {
 	position: absolute;
-	bottom: 0;
+	bottom: 6px;
 	left: 5; 
 	border-top:1px solid #474952;
 	color:#29cc90;
-	height:165px;
+	max-height:40px;
 	width:100%;
 	font-size:13px;
 	font-family: courier;
+	overflow-y: auto;
 }
 
 #footer i:hover{
@@ -199,42 +222,16 @@ form select{
 }
 
 #footer input{
-	width:calc(100% - (30px * 3));
+	width:calc(100% - (31px * 3));
 	background-color: #24272e;
 	height:30px;
 	border:0;
 	outline: 0;
 	color:#29cc90;
-	margin-top:0px
-}
-
-#console{
-	overflow-y: auto;
-	height:120px;
 	margin-left:10px;
-	margin-top:5px;
 }
 
-
-
-#text-message{
-	border-top:1px solid #474952;
-	height:35px;
-}
 
 @media (max-width: 600px) {
-	#footer{
-		height:90px;
-	}
-	#container{
-		height: 70vh;
-	}
-	#bet{
-		display:none;
-		bottom: 80px;
 
-	}
-	#console{
-		height: 7vh;
-	}
 }
