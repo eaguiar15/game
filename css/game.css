@@ -26,6 +26,20 @@
     margin-top:20px;
     margin-right:40px;
     z-index: 0;
+    user-select: none;
+}
+
+.table-in div:first-child{
+    font-family: "Nome da Fonte", sans-serif; 
+    font-size: 36px; 
+    color: rgba(255, 255, 255, 0.5); 
+    opacity: 0.15; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); 
+    position: absolute; 
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    z-index: -1; 
 }
 
 .player{
@@ -37,6 +51,7 @@
     background-color: transparent;
     border: 2px solid rgba(169, 169, 169, 0.623);/* rgba(161, 165, 167, 0.685);*/
     box-shadow: 0 0 15px 0px;
+    
     /* filter: drop-shadow(1px 1px 1px rgba(238, 100, 8, 0.856));  */
 }
 
@@ -64,6 +79,7 @@
 }
 
 .player-bet {
+    position: absolute;
     width:60px;
     margin-top:-120px;
     margin-left:-10px;
@@ -79,42 +95,49 @@
     /* font-weight: bold; */
 }
 
-.player-cards{
-    /* display: flex;   
-	align-items: center; */
-}
 
-.player-cards :first-child{
+
+.player-cards div,  .player-cards-others div{
     position: absolute;
     width:50px;
     height:60px;
-    margin-top:5px;
-    margin-left:50px;
-    background-image: url('../img/cards/3.png') ;
     background-size: contain;
     background-repeat: no-repeat;
+    margin-top:-95px;
+}
+
+.player-cards :first-child, .player-cards-others :first-child {
+    margin-left:50px;
+    background-image: url('../img/cards/3.png') ;
 }
 .player-cards :first-child:hover{
     z-index: 2;
 }
 
-.player-cards :last-child{
-    position: absolute;
-    width:50px;
-    height:60px;
-     margin-top:5px;
+.player-cards :last-child,  .player-cards-others :last-child{
     margin-left:75px; 
     background-image: url('../img/cards/14.png') ;
-    background-size: contain;
-    background-repeat: no-repeat;
-    /* border-left:1px solid lightgray;
-    border-radius:5px; */
 }
 
+.player-cards-others :first-child{
+    border-radius: 5px; 
+    border:1px solid rgba(0, 0, 0, 0.325);
+    height:30px; 
+    width:20px; 
+    background-size: cover;
+    background-image: url('../img/cards/-2.png') ; 
+}
+.player-cards-others :last-child{
+    border-radius: 5px; 
+    border:1px solid rgba(0, 0, 0, 0.325);
+    height:30px; 
+    width:20px; 
+    background-image: url('../img/cards/-2.png') ; 
+    background-size: cover;
+    margin-left:60px;
+}
 
-
-
-.p1{
+.p1, .p2{
     position: absolute;
     background-image: url('../img/players/p1.jpg');
     background-size: cover;
@@ -122,8 +145,11 @@
     top:calc(275px - 45px);
 }
 
-
-
+.p2{
+    background-image: url('../img/players/p2.jpg');
+    left:calc(550px - 125px  );
+    top:calc(275px - 45px);
+}
 
 #bet div:first-child{
     width:100%;
@@ -153,9 +179,35 @@
     white-space: nowrap;
  }
 
+ .current {
+     border-color:orange;
+    /*border:2px solid orange; */
+	animation: cd-pulse 2s infinite;
+	animation-delay: 0.8s;
+}
+
+
+@keyframes cd-pulse {
+    0% {
+        -moz-box-shadow: 0 0 0 0 rgba(44, 87, 204, 0.4);
+        box-shadow: 0 0 0 0 orange;
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(44, 55, 204, 0);
+        box-shadow: 0 0 0 20px rgba(44, 47, 204, 0); 
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(44, 81, 204, 0);
+        box-shadow: 0 0 0 0 rgba(44, 47, 204, 0);
+    }
+}
+
+
+
+
  @media (max-width: 600px) {
 	.table{
-        height:475px;
+        height:500px;
         width: 300px;
         border-radius: 150px;
         margin-top:0px;
@@ -166,9 +218,23 @@
         width: 250px;
         border-radius: 120px;
     }
+    .table-in div{
+        white-space: nowrap;
+        /* transform: rotate(90deg); */
+        /* margin-left:-50%; */
+        /* transform: translate(-50%, -50%); */
+    }
     .p1{
         left:calc(300px / 2 - (60px / 2) );
         top:calc(425px - 10px);
+    }
+    .p2{
+        left:calc(300px   - (60px / 2) + 10px);
+        top:325px
+    }
+    .player-bet-p2{
+        margin-top:-80px;
+        margin-left:-85px;
     }
     
 

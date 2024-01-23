@@ -192,20 +192,16 @@ form select{
 	overflow-y: auto;
 	height:80px;
 	width:100%;
-	font-family: courier;
+	font-family: 'Courier New', Courier, monospace;
 	color:#29cc90;
-	font-size:13px;
+	font-size:12px;
 	border-top:1px solid #474952;
 }
 
 #console div{
 	margin-left:15px;
-	margin-top:5px;
-	margin-bottom:5px;
-}
-
-#console span:first-child{
-	padding-top:5px;
+	margin-top:3px;
+	margin-bottom:3px;
 }
 
 #footer {
@@ -239,3 +235,5 @@ form select{
 @media (max-width: 600px) {
 
 }
+
+
