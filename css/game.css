@@ -42,6 +42,19 @@
     z-index: -1; 
 }
 
+.card-pot{
+    
+    position: absolute;
+    border:2px dotted lightgray;
+    color: rgba(255, 255, 255, 0.5); 
+    opacity: 0.15; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); 
+    width:40px;
+    height:50px;
+    margin-top:30px;
+    margin-left:200px
+}
+
 .player{
     position: relative;
     width:60px;
@@ -120,12 +133,14 @@
 }
 
 .player-cards-others :first-child{
+     margin-left:50px; 
     border-radius: 5px; 
     border:1px solid rgba(0, 0, 0, 0.325);
     height:30px; 
     width:20px; 
     background-size: cover;
     background-image: url('../img/cards/-2.png') ; 
+    transform: rotate(-20deg);
 }
 .player-cards-others :last-child{
     border-radius: 5px; 
@@ -135,6 +150,7 @@
     background-image: url('../img/cards/-2.png') ; 
     background-size: cover;
     margin-left:60px;
+    transform: rotate(20deg);
 }
 
 .p1, .p2{
@@ -202,6 +218,31 @@
     }
 }
 
+.carta {
+    width: 100px;
+    height: 150px;
+    background-color: #3498db; /* Cor de fundo da carta */
+    border: 1px solid #2980b9; /* Cor da borda da carta */
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%); /* Centraliza a carta */
+    animation: deslizarCarta 3s linear infinite;
+}
+
+@keyframes deslizarCarta {
+    0% {
+        left: 0;
+    }
+    50% {
+        left: 50%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
 
 
 
@@ -223,6 +264,10 @@
         /* transform: rotate(90deg); */
         /* margin-left:-50%; */
         /* transform: translate(-50%, -50%); */
+    }
+    .card-pot{
+        margin-top:50px;
+        margin-left:100px
     }
     .p1{
         left:calc(300px / 2 - (60px / 2) );
