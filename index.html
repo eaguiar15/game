@@ -29,13 +29,13 @@
 				<label for="valor">Valor</label>
 			</div>
 			<div>
-            	<input type="number" id="valor" name="valor" required>
+            	<input type="number" id="valor" name="valor" value=100 required>
 			</div>
 			<div>
-            <label for="valorPote">Valor do pote</label>
+            <label for="valorPote" >Valor do pote</label>
 			</div>
 			<div>
-            <input type="number" id="valorPote" name="valorPote" required>
+            <input type="number" id="valorPote" name="valorPote" value="2.5" required>
 			</div>
 			<br>
 			<div class="btn btn-secondary" onclick="menu(this)">
@@ -85,15 +85,28 @@
 		</form>
 		
 	</div>
-	<div class="box" id="tab-table-game" style="display:block">
+	<div class="box" id="tab-table-game" style="display:">
 		<div class="table">
 			<div class="table-in"></div>
+			<div class="player p1">
+				<div class="player-box">
+					<span>Cell</span>
+					<span>150 R$</span>
+				</div>
+				<div class="player-bet">
+					15.00 $
+				</div>
+				<div class="player-cards">
+					<div></div>
+					<div></div>
+				</div>
+			</div>
 		</div>
 		
 	</div>
 	
 </div>
-<div id="bet"  style="display:block">
+<div id="bet"  style="display:none">
 
 	 <div>
 		<input type=range>

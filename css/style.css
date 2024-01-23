@@ -83,6 +83,10 @@ i{
 	transform: scale(1,1);
 }
 
+.btn-primary:hover{
+	background:rgba(29, 204, 144,0.15); 
+}
+
 .btn-secondary:hover{
 	background:rgba(29, 204, 144,0.30);
 }
@@ -195,7 +199,7 @@ form select{
 }
 
 #console div{
-	margin-left:25px;
+	margin-left:15px;
 	margin-top:5px;
 	margin-bottom:5px;
 }
@@ -212,7 +216,7 @@ form select{
 	color:#29cc90;
 	max-height:40px;
 	width:100%;
-	font-size:13px;
+	font-size:12px;
 	font-family: courier;
 	overflow-y: auto;
 }

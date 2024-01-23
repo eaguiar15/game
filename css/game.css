@@ -7,25 +7,25 @@
     border:2px solid #20795f;
     /* background-image: url('https://media.istockphoto.com/id/1092139474/pt/foto/empty-green-casino-poker-table-cloth-with-spotlight.jpg?s=1024x1024&w=is&k=20&c=Dae6Nn2sscqo77siG7KF15MRCJeNb7nJwNPLl7uqX1o='); */
     /* background-image: url('https://media.istockphoto.com/id/1046326882/pt/foto/poker-table.webp?s=1024x1024&w=is&k=20&c=fJA6vfSLxBTZ2OmzzS8IXromqP9rkmXuCRwULAQqP-s='); */
-    background-image: url('../img/table2.png'); 
+    background-image: url('../img/table.png'); 
     background-size: cover;
     border:20px solid rgba(24, 23, 23, 0.932);
     box-shadow: 0 0 5px 0px;
     filter: drop-shadow(0 0 15px rgba(29, 204, 144,0.50)); 
     margin-top:-75px;
-     opacity: 0.70; 
+     opacity: 1.80; 
 }
 
 .table-in{
     position: absolute;
     width: 445px;
     height: 230px;
-    border:1px solid rgba(255, 255, 255, 0.11);
+    border:3px solid rgba(255, 255, 255, 0.062);
     border-radius: 170px;
     margin-left: 50px;
     margin-top:20px;
     margin-right:40px;
-    z-index: -1;
+    z-index: 0;
 }
 
 .player{
@@ -37,24 +37,93 @@
     background-color: transparent;
     border: 2px solid rgba(169, 169, 169, 0.623);/* rgba(161, 165, 167, 0.685);*/
     box-shadow: 0 0 15px 0px;
-    filter: drop-shadow(1px 1px 1px rgba(238, 100, 8, 0.856)); 
+    /* filter: drop-shadow(1px 1px 1px rgba(238, 100, 8, 0.856));  */
 }
 
-.player div{
-    position: absolute;
-    width:65px;
-    height:100px;
+.player-box{
+    width:70px;
+    height:40px;
     background-color: #191c21;
-    opacity: 0.75;
+    border-radius:5px;
+    opacity: 0.80;
+    margin-top:55px;
+    color:white;
+    text-align: center;
+    display: grid;
+    margin-left:-5px;
+    font-family: Arial, Helvetica, sans-serif
 }
+.player-box div span:first-child{
+    color:white;
+    font-size:12px;
+}
+
+.player-box span:nth-child(2){
+    color:var(--primary);
+    color:#bea86a;
+}
+
+.player-bet {
+    width:60px;
+    margin-top:-120px;
+    margin-left:-10px;
+    color:white;
+    background-color: #126a43;
+    text-align: center;
+    border-radius:5px;
+    font-size:12px;
+    padding:2px;
+    padding-right:10px;
+    padding-left:10px;
+    white-space: nowrap;
+    /* font-weight: bold; */
+}
+
+.player-cards{
+    /* display: flex;   
+	align-items: center; */
+}
+
+.player-cards :first-child{
+    position: absolute;
+    width:50px;
+    height:60px;
+    margin-top:5px;
+    margin-left:50px;
+    background-image: url('../img/cards/3.png') ;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.player-cards :first-child:hover{
+    z-index: 2;
+}
+
+.player-cards :last-child{
+    position: absolute;
+    width:50px;
+    height:60px;
+     margin-top:5px;
+    margin-left:75px; 
+    background-image: url('../img/cards/14.png') ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* border-left:1px solid lightgray;
+    border-radius:5px; */
+}
+
+
+
 
 .p1{
     position: absolute;
     background-image: url('../img/players/p1.jpg');
     background-size: cover;
     left:calc(550px / 2 - (60px / 2) - 15px);
-    top:calc(275px - 45px)
+    top:calc(275px - 45px);
 }
+
+
+
 
 #bet div:first-child{
     width:100%;
@@ -96,6 +165,10 @@
         height: 425px;
         width: 250px;
         border-radius: 120px;
+    }
+    .p1{
+        left:calc(300px / 2 - (60px / 2) );
+        top:calc(425px - 10px);
     }
     
 
