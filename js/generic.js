@@ -15,12 +15,10 @@ function getElem(pValue){
 
 function show(pValue){
      getElem(pValue).style.display = "block";
-     getElem(pValue).style.opacity = "1";
 }
 
 function hide(pValue){
     getElem(pValue).style.display = "none";
-    getElem(pValue).style.opacity = "0";
 }
 
 function getParam(paramName) {

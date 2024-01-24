@@ -1,0 +1,111 @@
+/* JOGADOR ATUAL*/
+.current {
+    border-color:orange;
+   /*border:2px solid orange; */
+   animation: cd-pulse 1s infinite;
+   animation-delay: 0.8s;
+}
+
+
+@keyframes cd-pulse {
+   0% {
+       -moz-box-shadow: 0 0 0 0 rgba(44, 87, 204, 0.4);
+       box-shadow: 0 0 0 0 orange;
+   }
+   70% {
+       -moz-box-shadow: 0 0 0 10px rgba(44, 55, 204, 0);
+       box-shadow: 0 0 0 10px rgba(44, 47, 204, 0); 
+   }
+   100% {
+       -moz-box-shadow: 0 0 0 0 rgba(44, 81, 204, 0);
+       box-shadow: 0 0 0 0 rgba(44, 47, 204, 0);
+   }
+}
+
+/* DAR CARTAS*/
+.give-card{
+    position: absolute;
+    width:18px;
+    height:28px;
+    background-image: url('../img/cards/-2.png'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius:2px;
+    border:1px solid rgba(0, 0, 0, 0.325);
+    /* animation: slide-p1 0.4s linear ; */
+    animation-iteration-count: 2; 
+    margin-top:28px;
+    margin-left:215px;
+} 
+  
+@media (max-width: 600px) {  
+    .give-card{
+        margin-top:65px;
+        margin-left:115px;
+    }
+}
+   
+.give-card-animation-p1{
+    animation: slide-p1 0.4s linear ; 
+    animation-iteration-count: 2;  
+}
+
+.give-card-animation-p2{
+    animation: slide-p2 0.4s linear ; 
+    animation-iteration-count: 2;  
+}
+
+@keyframes slide-p1 {
+    0% {    
+        margin-top: 45px;
+    }
+    50% {
+        margin-top: 175px;
+    }
+    100% {
+        margin-top: 250px;
+    } 
+} 
+
+@media (max-width: 600px) {  
+    @keyframes slide-p1 {
+        0% {
+            margin-top: 65px;
+        }
+        50% {
+            margin-top: 275px;
+        }
+        100% {
+            margin-top: 450px;
+        }
+    }
+}
+
+@keyframes slide-p2 {
+    0% {
+        margin-top: 45px;
+    }
+    50% { 
+        margin-top: 125px;  
+    } 
+    100% {  
+        margin-top: 200px;  
+        margin-left:470px;
+    } 
+        
+}
+
+@media (max-width: 600px) {  
+    @keyframes slide-p2 {
+        0% {
+            margin-top: 65px;
+        }
+        50% { 
+            margin-top: 175px;  
+        } 
+        100% {  
+            margin-top: 315px;
+            margin-left:calc(300px   - (60px / 2) + 35px);
+        }
+    }
+}
