@@ -108,8 +108,6 @@
     /* font-weight: bold; */
 }
 
-
-
 .player-cards div,  .player-cards-others div{
     position: absolute;
     width:50px;
@@ -157,13 +155,15 @@
     position: absolute;
     background-image: url('../img/players/p1.jpg');
     background-size: cover;
-    left:calc(550px / 2 - (60px / 2) - 15px);
+    left:calc(550px / 2 - (60px / 2) + 5px);
     top:calc(275px - 45px);
 }
 
 .p2{
+    position: absolute;
     background-image: url('../img/players/p2.jpg');
-    left:calc(550px - 125px  );
+    background-size: cover;
+    left:calc(550px - 125px  + 40px );
     top:calc(275px - 45px);
 }
 
@@ -198,7 +198,7 @@
  .current {
      border-color:orange;
     /*border:2px solid orange; */
-	animation: cd-pulse 2s infinite;
+	animation: cd-pulse 1s infinite;
 	animation-delay: 0.8s;
 }
 
@@ -210,49 +210,17 @@
     }
     70% {
         -moz-box-shadow: 0 0 0 10px rgba(44, 55, 204, 0);
-        box-shadow: 0 0 0 20px rgba(44, 47, 204, 0); 
+        box-shadow: 0 0 0 10px rgba(44, 47, 204, 0); 
     }
     100% {
         -moz-box-shadow: 0 0 0 0 rgba(44, 81, 204, 0);
         box-shadow: 0 0 0 0 rgba(44, 47, 204, 0);
     }
 }
-
 .give-card{
-    position: absolute;
-    width:40px;
-    height:30px;
-    background-image: url('../img/cards/-1.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+    margin-top:45px;
+    margin-left:215px;
 }
-
-.carta {
-    width: 100px;
-    height: 150px;
-    background-color: #3498db; /* Cor de fundo da carta */
-    border: 1px solid #2980b9; /* Cor da borda da carta */
-    border-radius: 8px;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translate(-50%, -50%); /* Centraliza a carta */
-    animation: deslizarCarta 3s linear infinite;
-}
-
-@keyframes deslizarCarta {
-    0% {
-        left: 0;
-    }
-    50% {
-        left: 50%;
-    }
-    100% {
-        left: 100%;
-    }
-}
-
-
 
  @media (max-width: 600px) {
 	.table{
@@ -278,7 +246,7 @@
         margin-left:100px
     }
     .p1{
-        left:calc(300px / 2 - (60px / 2) + 15px);
+        left:calc(300px / 2 - (60px / 2) + 0px);
         top:calc(450px );
     }
     .p2{
@@ -289,7 +257,88 @@
         margin-top:-80px;
         margin-left:-85px;
     }
-    
+    .give-card{
+        margin-top:65px;
+        margin-left:115px;
+    }
 
 }
 
+/* GIVE CARDS ANIMATION */
+.give-card{
+    position: absolute;
+    width:18px;
+    height:28px;
+    background-image: url('../img/cards/-2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius:2px;
+    border:1px solid rgba(0, 0, 0, 0.325);
+    /* animation: slide-p1 0.4s linear ; */
+    animation-iteration-count: 2; 
+} 
+   
+.give-card-animation-p1{
+    animation: slide-p1 0.4s linear ; 
+    animation-iteration-count: 2;  
+}
+
+.give-card-animation-p2{
+    animation: slide-p2 0.4s linear ;  
+    animation-iteration-count: 2;  
+}
+
+@keyframes slide-p1 {
+    0% {    
+        margin-top: 45px;
+    }
+    50% {
+        margin-top: 175px;
+    }
+    100% {
+        margin-top: 250px;
+    } 
+} 
+
+@media (max-width: 600px) {  
+    @keyframes slide-p1 {
+        0% {
+            margin-top: 65px;
+        }
+        50% {
+            margin-top: 275px;
+        }
+        100% {
+            margin-top: 450px;
+        }
+    }
+}
+
+@keyframes slide-p2 {
+    0% {
+        margin-top: 45px;
+    }
+    50% { 
+        margin-top: 125px;  
+    } 
+    100% {  
+        margin-top: 200px;  
+        margin-left:470px;
+    } 
+        
+}
+
+@media (max-width: 600px) {  
+    @keyframes slide-p2 {
+        0% {
+            margin-top: 65px;
+        }
+        50% { 
+            margin-top: 175px;  
+        } 
+        100% {  
+            margin-top: 315px;
+            margin-left:calc(300px   - (60px / 2) + 35px);
+        }
+    }
+}

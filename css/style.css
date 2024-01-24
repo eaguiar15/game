@@ -26,7 +26,7 @@ i{
 	font-size:14px;
  }
 
- .btn-primary, .btn-secondary{
+ .btn-primary, .btn-secondary, .btn-danger{
 	color:#29cc90;
 	transition: all 0.5s;
 	position: relative;
@@ -38,6 +38,11 @@ i{
 	background-color: rgba(29, 204, 144,0.15);
  }
 
+ .btn-danger {
+	color:white;
+	background-color: rgba(162, 44, 44, 0.18);
+ }
+
  .btn-primary:hover{
 	color:white;
  }
@@ -47,7 +52,7 @@ i{
 	
  }
 
- .btn-primary::before, .btn-secondary::before{
+ .btn-primary::before, .btn-secondary::before,  .btn-danger::before{
 	content: '';
 	position: absolute;
 	top: 0;
@@ -59,12 +64,17 @@ i{
 	transition: all 0.3s;
 }
 
-.btn-primary:hover::before, .btn-secondary:hover::before {
+.btn-danger::before{
+	border:1px solid rgba(197, 36, 36, 0.5);
+}
+
+
+.btn-primary:hover::before, .btn-secondary:hover::before, .btn-danger:hover::before{
 	opacity: 0 ;
 	transform: scale(0.5,0.5);
 	
 }
-.btn-primary::after,.btn-secondary::after  {
+.btn-primary::after,.btn-secondary::after,.btn-danger::after  {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -92,6 +102,13 @@ i{
 }
 .btn-secondary:active{
 	background:rgba(14, 131, 90, 0.322);
+}
+.btn-danger:hover{
+	background:rgba(197, 36, 36, 0.3);
+}
+.btn-danger:active{
+	
+	background:rgba(162, 44, 44, 0.18);
 }
 
 
@@ -182,7 +199,7 @@ form select{
     position: absolute;
 	width:calc(100% - 25px);
 	bottom: calc(80px + 40px);
-	left: 5px;
+	left: 10px;
 	height:115px;
 }
 
