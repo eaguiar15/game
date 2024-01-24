@@ -30,12 +30,12 @@ function getParam(paramName) {
 
  function toggleFullScreen() {
     if (!document.fullscreenElement && 
-      !document.mozFullScreenElement &&
-      !document.webkitFullscreenElement &&
-      !document.msFullscreenElement) {
-      document.documentElement.requestFullscreen();
+        !document.mozFullScreenElement &&
+        !document.webkitFullscreenElement &&
+        !document.msFullscreenElement) {
+         document.documentElement.requestFullscreen();
     } else {
-      document.exitFullscreen();
+        document.exitFullscreen();
     }
   }
 
@@ -78,6 +78,7 @@ function getParam(paramName) {
             show("tab-menu");
             hide("tab-create-game");
             hide("tab-join-game");
+            hide("tab-table-game");
           break;
       }
 }

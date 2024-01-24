@@ -43,16 +43,16 @@
 }
 
 .card-pot{
-    
     position: absolute;
     border:2px dotted lightgray;
     color: rgba(255, 255, 255, 0.5); 
     opacity: 0.15; 
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); 
-    width:40px;
-    height:50px;
+    width:45px;
+    height:60px;
     margin-top:30px;
     margin-left:200px
+
 }
 
 .player{
@@ -218,6 +218,15 @@
     }
 }
 
+.give-card{
+    position: absolute;
+    width:40px;
+    height:30px;
+    background-image: url('../img/cards/-1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 .carta {
     width: 100px;
     height: 150px;
@@ -245,7 +254,6 @@
 
 
 
-
  @media (max-width: 600px) {
 	.table{
         height:500px;
@@ -270,8 +278,8 @@
         margin-left:100px
     }
     .p1{
-        left:calc(300px / 2 - (60px / 2) );
-        top:calc(425px - 10px);
+        left:calc(300px / 2 - (60px / 2) + 15px);
+        top:calc(450px );
     }
     .p2{
         left:calc(300px   - (60px / 2) + 10px);

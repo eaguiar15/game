@@ -222,7 +222,7 @@ form select{
 }
 
 #footer input{
-	width:calc(100% - (31px * 3));
+	width:calc(100% - (30px * 4));
 	background-color: #24272e;
 	height:30px;
 	border:0;
