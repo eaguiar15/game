@@ -10,9 +10,45 @@ body{
 	font-size:14px;
 }
 
+
 i{
 	cursor:pointer;
 }
+
+
+.slider {
+	appearance: none;
+	width: 50%;
+	height: 0px;
+	background: #000;
+	outline: none;
+	border: 1px solid var(--primary);
+	border-radius: 8px;
+	
+  }
+  
+  
+  /* for chrome/safari */
+  .slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 15px;
+	height: 30px;
+	background: #000;
+	cursor: pointer;
+	border: 2px solid var(--primary);
+	border-radius: 4px;
+  }
+  
+  /* for firefox */
+  .slider::-moz-range-thumb {
+	width: 15px;
+	height: 30px;
+	background: #000;
+	cursor: pointer;
+	border: 2px solid var(--primary);
+	border-radius: 4px;
+  }
 
 
 /* INICIO BOTÕES */
@@ -42,6 +78,8 @@ i{
 	color:white;
 	background-color: rgba(162, 44, 44, 0.18);
  }
+
+
 
  .btn-primary:hover{
 	color:white;
@@ -187,7 +225,7 @@ form select{
 #container {
 	width: 100%;
 	height: calc(100% - (50px + 165px + 100px));
-	height: 75vh;
+	height: 77vh;
 	position: absolute;
 	display: flex;   
 	align-items: center;

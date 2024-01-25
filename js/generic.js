@@ -37,6 +37,9 @@ function getParam(paramName) {
     }
   }
 
+
+
+
  function showConsole(icon){
       
       if(icon.className == "fas fa-eye-slash"){
@@ -45,7 +48,7 @@ function getParam(paramName) {
           icon.setAttribute("class","fas fa-eye");
         }else{
           getElem("console").style.display = "none";
-          getElem("bet").style.bottom = "40px";
+          getElem("bet").style.bottom = "30px";
           icon.setAttribute("class","fas fa-eye-slash");
       }
  } 
@@ -81,5 +84,8 @@ function getParam(paramName) {
       }
 }
 
+getElem("slider-bet").addEventListener('input', function() {
+  getElem("money-bet").innerText = parseFloat(this.value).toFixed(2);  
+});
 
 
