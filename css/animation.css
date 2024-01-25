@@ -1,3 +1,49 @@
+.loss-move{
+    border-color:var(--secondary);
+    border:2px solid #802629d5;
+    animation: cd-pulse-loss-move 0.25s infinite;
+    animation-iteration-count: 10; 
+    animation-delay: 0.5s;   
+ }
+  
+ @keyframes cd-pulse-loss-move {
+     0% {
+         -moz-box-shadow: 0 0 0 0 rgba(44, 87, 204, 0.4);
+         box-shadow: 0 0 0 0px rgba(146, 25, 25, 0.349);
+     }
+     70% {
+         -moz-box-shadow: 0 0 0 10px rgba(44, 55, 204, 0);
+         box-shadow: 0 0 0 10px rgba(146, 25, 25, 0.349);
+     }
+     100% {
+         -moz-box-shadow: 0 0 0 0 rgba(44, 81, 204, 0);
+         box-shadow: 0 0 0 15px rgba(146, 25, 25, 0.349);
+     }
+  }
+
+.win-move{
+   border-color:var(--secondary);
+   border:2px solid rgba(26, 94, 172, 0.822);
+   animation: cd-pulse-win-move 0.25s infinite;
+   animation-iteration-count: 10; 
+   animation-delay: 0.5s; 
+}
+
+@keyframes cd-pulse-win-move {
+    0% {
+        -moz-box-shadow: 0 0 0 0 rgba(44, 87, 204, 0.4);
+        box-shadow: 0 0 0 0px rgba(26, 94, 172, 0.50); 
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(44, 55, 204, 0);
+        box-shadow: 0 0 0 10px rgba(26, 94, 172, 0.50); 
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(44, 81, 204, 0);
+        box-shadow: 0 0 0 15px rgba(26, 94, 172, 0.50); 
+    }
+ }
+
 /* JOGADOR ATUAL*/
 .current {
     border-color:orange;

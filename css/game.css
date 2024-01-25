@@ -18,7 +18,7 @@
 }
 
 .table-in{
-    position: absolute;
+    position: relative;
     width: 445px;
     height: 230px;
     border:3px solid rgba(255, 255, 255, 0.062);
@@ -43,17 +43,60 @@
     z-index: -1; 
 }
 
-.card-pot{
+.card-pot-empty{
     position: absolute;
     border:2px dotted lightgray;
     color: rgba(255, 255, 255, 0.5); 
-    opacity: 0.15; 
+    opacity: 0.15; ;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); 
     width:45px;
     height:60px;
     margin-top:10px;
-    margin-left:200px
+    margin-left:200px;
+    /* display:none; */
+    
+}
 
+.card-pot {
+    position: relative;
+    width: 50px;
+    height: 65px;
+    perspective: 1000px; 
+    margin-top:10px;
+    margin-left:202.5px;
+    
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d; 
+    transition: transform 0.6s ease; 
+}
+
+.card-pot .content {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden; 
+}
+
+.card-pot .front {
+    background-image: url('../img/cards/-1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.card-pot .verse {
+    background-image: url('../img/cards/8.png');
+    background-size: contain;
+    transform: rotateY(180deg); 
+    background-repeat: no-repeat;
+    
+}
+
+.card-pot.flipper .wrapper {
+    transform: rotateY(180deg); 
 }
 
 .pot-value{
@@ -152,7 +195,7 @@
     /* font-weight: bold; */
 }
 
-.player-cards div,  .player-cards-others div{
+.player-cards div,  .player-cards-others div, .player-cards-show div{
     position: absolute;
     width:50px;
     height:60px;
@@ -194,6 +237,22 @@
     background-size: cover;
     transform: rotate(20deg);
 }
+
+.player-cards-show :first-child{
+    width:45px;
+    margin-left:-5px;
+    background-image: url('../img/cards/11.png') ;
+    background-size: contain;
+}
+
+.player-cards-show :last-child{
+    width:45px;
+    margin-left:20px;
+    background-image: url('../img/cards/5.png') ;
+    background-size: contain;
+}
+
+
 
 .p1, .p2{
     position: absolute;
@@ -303,12 +362,19 @@
         /* margin-left:-50%; */
         /* transform: translate(-50%, -50%); */ 
     }
-    .card-pot{
+    .card-pot-empty{
         margin-top:50px;
         margin-left:100px
     }
+    .card-pot {
+        width: 50px;
+        height: 65px;
+        margin-top:50px;
+        margin-left:102.5px;
+        
+    }
     .pot-value{
-        margin-top:120px;
+        margin-top:20px;
         margin-left:85px;
     }
 
@@ -345,7 +411,7 @@
     }
     .player-bet-p4, .player-bet-p5{
         margin-top:-75px;
-        margin-left:80px;
+        margin-left:70px;
     }
 
 
