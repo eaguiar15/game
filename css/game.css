@@ -1,3 +1,8 @@
+/* init */
+.hide{
+    display:none;
+}
+
 .table {
     position: relative;
     width: 550px;
@@ -124,7 +129,7 @@
     opacity: 0.15; 
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); 
     position: absolute; 
-    margin-top:90px;
+    top: 175px;
     left: 50%; 
     transform: translate(-50%, -50%);
     z-index: -1; 
@@ -244,7 +249,7 @@
     margin-left:-5px;
     background-image: url('../img/cards/11.png') ;
     background-size: contain;
-    margin-top:-100px
+     margin-top:-100px;
 }
 
 .player-cards-show :last-child{
@@ -254,8 +259,6 @@
     background-size: contain;
     margin-top:-100px
 }
-
-
 
 .p1, .p2{
     position: absolute;
@@ -320,35 +323,40 @@
 .range-class{
     width:100%;
     text-align: center;
-    margin-bottom:15px;
+    margin-top:10px;
 }
 
 #bet{
+    position: absolute;
+	width:calc(100% - 25px);
     bottom : 30px;
+	left: 10px;
+	height:115px;
 }
 
-#bet input{
+.bet input{
     width:250px;
     margin-top:15px;
 }
 
-#bet div:nth-child(2){
+.bet div:nth-child(2){
     width:100%;
     display:flex;
     align-items: center;
     justify-content: center;
 }
 
-#bet div:nth-child(2) div{
+.bet div:nth-child(2) div{
    width:200px;
 }
 
-#bet div:nth-child(2) div:nth-child(2){
+.bet div:nth-child(2) div:nth-child(2){
     width:100px;
     color:#29cc90;
     margin-top:10px;
     white-space: nowrap;
  }
+ 
 
  .money-bet{
         position:absolute;
@@ -410,11 +418,11 @@
         top:475px;
     }
     .p2{
-        left:calc(300px   - (60px / 2) + 10px);
+        left:calc(300px   - (60px / 2) + 5px);
         top:335px
     }
     .p3{
-        left:calc(300px   - (60px / 2) + 10px);
+        left:calc(300px   - (60px / 2) + 5px);
         top:60px
     }
     .p4{
