@@ -36,7 +36,7 @@ function showGame(){
     for(let a in  game.players){
         if(game.players[a].status == 1){
             let elem = getElem("p" + game.players[a].pos);
-            elem.style.backgroundImage =  "url('../img/players/p" + game.players[a].pos + ".jpg')";
+            elem.style.backgroundImage =  "url('./img/players/p" + game.players[a].pos + ".jpg')";
             elem.classList.remove('hide');
             elem.children[0].children[0].innerText = game.players[a].name;
             elem.children[0].children[1].innerText = game.players[a].value;
