@@ -37,9 +37,6 @@ function getParam(paramName) {
     }
   }
 
-
-
-
  function showConsole(icon){
       
       if(icon.className == "fas fa-eye-slash"){
@@ -53,6 +50,18 @@ function getParam(paramName) {
       }
  } 
 
+ function getNamePlayers(option){
+    switch (option) {
+      case 1: return 'Cell'; 
+      case 2: return 'Homer'; 
+      case 3: return 'Joaquim'; 
+      case 4: return 'Sr. Burns'; 
+      case 5: return 'Sr. Kaioh'; 
+    
+      default: return 'Player'; 
+    }
+ }
+
  function menu(pOpt){
     pOpt = pOpt.innerText;
     switch (pOpt) {
@@ -63,7 +72,7 @@ function getParam(paramName) {
         case "Entrar Partida":
           hide("tab-menu");
           show("tab-join-game");
-          document.forms[1].P_ID_GAME.focus();
+          document.forms[1].idGame.focus();
           break;
         case "Criar Jogo":
             hide("tab-create-game");

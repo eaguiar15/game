@@ -25,13 +25,14 @@ function init(){
     }
 }
 
-createGame();
+//createGame();
 
 function showGame(){
     let elem = getElem("game-info");
     elem.children[0].innerText = "Blind: " + game.blind + " / 10";
     elem.children[1].innerText = "Buy in: " + game.buyin;
     elem.children[2].innerText = "Rodada: " + game.round;
+    elem.children[3].innerText = "Game: #" + game.idGame;
 
     for(let a in  game.players){
         if(game.players[a].status == 1){
@@ -53,12 +54,11 @@ function createGame(){
     shuffleCards(cards);
 
     player = {
-        game : 1,
-        value : 100,
+        game : 0,
         pos : 1   
     }
     game = {
-        game : 1,
+        idGame : 0,
         buyin : 100,
         pot  : 0,
         blind : 2.5,
@@ -70,41 +70,64 @@ function createGame(){
         cards : cards,
         currentCard : 0,
         players : [
-            {pos : 1, value :100, status:1, name:"Cell", ia: false},
-            {pos : 2, value :100, status:1, name:"Homer", ia: false},
-            {pos : 3, value :100, status:1, name:"Joaquim", ia: false},
-            {pos : 4, value :100, status:1, name:"Burns", ia: false},
-            {pos : 5, value :100, status:1, name:"Sr. Kaioh", ia: false}
+            {pos : 1, value :100, status:1, name:"Cell", ia: false}
         ]
     };
-    init();
-    showGame();
+    
+    initWS("games.php?p=create","POST"); 
+    ws.onreadystatechange = function(){
+        if ( ws.readyState == 4 && ws.status == 200 ) {
+             resp = JSON.parse(ws.responseText);
+             game.idGame = resp.idGame;
+             init();
+             showGame();
+        }
+    }
+    ws.send(JSON.stringify(game));
 }
 
-function getGame(){
-    player = {
-        game : 1,
-        value : 100,
-        pos : 2   
+function getGame(actionType){
+    const form = getElem("form-join-game");
+    
+    initWS("games.php?p=select","POST"); 
+    ws.onreadystatechange = function(){
+        if ( ws.readyState == 4 && ws.status == 200 ) {
+            let resp = JSON.parse(ws.responseText);
+            game = resp.game;
+            game.idGame = resp.idGame;
+
+            enterGame();
+        }
     }
-    game = {
-        game : 1,
-        pot  : 0,
-        blind : 2.5,
-        status : "A",
-        round : 0,
-        play  : 0,
-        currentPlayer : 1,
-        currentBlind : 2.5,
-        cards : cards,
-        currentCard : 0,
-        players : [
-            {pos : 1, value :100, status:1, name:"Cell", ia: false},
-            {pos : 2, value :100, status:1, name:"Homer", ia: false},
-            {pos : 3, value :100, status:1, name:"Joaquim", ia: false},
-            {pos : 4, value :100, status:1, name:"Burns", ia: false},
-            {pos : 5, value :100, status:1, name:"Sr. Kaioh", ia: false}
-        ]
-    };
+    ws.send(JSON.stringify({idGame : form.idGame.value}));
+    
+}
+
+function enterGame(){
+    const form = getElem("form-join-game");
+
+    player = {
+        idGame : game.idGame,
+        pos : parseInt(form.idPlayer.value)   
+    }
+    // verifica se player já esta no jogo, caso não adiciona.
+    const index = game.players.findIndex(objeto => objeto.pos === player.pos);
+
+    if (index === -1) {
+        game.players.push({
+             pos : player.pos,
+             value :  game.buyin,
+             status : 1,
+             name : getNamePlayers(player.pos),
+             ia : false
+        });        
+    } 
     init();
+    showGame();
+    
+    sendMessage(JSON.stringify({
+         action : "Enter",
+         gameId : 1,
+         game   : game.idGame
+     }));
 }
