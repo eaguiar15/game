@@ -196,7 +196,7 @@
 	</div>
 </div>
 <div id="bet"  style="display:none">
-	<div class="bet" style="display:none" >
+	<div class="bet hide"  >
 		 <div>
 
 		</div> 
@@ -217,8 +217,8 @@
 			<input id="slider-bet" type=range class="slider" value="0" max="25" step="0.25">
 		</div>
 	</div>
-	<div  id="div-start-game" >
-		<div class="btn btn-primary">
+	<div id="div-start-game" style="display:none" >
+		<div class="btn btn-primary" onclick="startGame()">
 			<span>Iniciar Jogo</span>
 		</div> 
 	</div>
@@ -245,6 +245,6 @@
 	
 </body>
 </html>
-<script src="js/generic.js"></script>
 <script src="js/sockets.js"></script>
+<script src="js/generic.js"></script>
 <script src="js/game.js"></script>

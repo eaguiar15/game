@@ -2,6 +2,7 @@ var wsUri = "wss://socketsbay.com/wss/v2/5/5ce2f24dbca97556bfde0cc50bff65ea/";
 var log;
 
 function initSocket(){
+  console.log("try connect...");
   websocket = new WebSocket(wsUri);
   websocket.onopen    = function(evt) { onOpen(evt)    };
   websocket.onclose   = function(evt) { onClose(evt)   };
@@ -23,15 +24,17 @@ function onMessage(evt){
     writeLog('RESPONSE: ' + evt.data);
     try{
         let resp = JSON.parse(evt.data);
-        switch (resp.action) {
-            case "Enter":
-                game = resp.game;
-                showGame();
-                break;
-        
-            default:
-                break;
-        }
+        if(resp.idGame == getNamePlayers.idGame){
+            switch (resp.action) {
+                case "Enter":
+                    game = resp.game;
+                    showGame();
+                    break;
+            
+                default:
+                    break;
+            }
+         }
     }catch(e){
         
     }

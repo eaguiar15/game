@@ -1,3 +1,17 @@
+function saveGame(){
+    initWS("games.php?p=update","POST"); 
+    ws.onreadystatechange = function(){
+        if ( ws.readyState == 4 && ws.status == 200 ) {
+            console.log(ws.responseText);
+            /*let resp = JSON.parse(ws.responseText);
+            if(resp.status == 1){
+                
+            }*/
+        }
+    }
+    ws.send(JSON.stringify({idGame : game.idGame, game : game}));
+}
+
 function showPotCard(pCard){
     getElem("verse-card").style.backgroundImage = "url('./img/cards/" + pCard + ".png')";
     const card = document.getElementById('card-pot');
@@ -13,19 +27,43 @@ function shuffleCards(cards){
     }
 }
 
+function dealCards(){
+    let cards = [];
+    let pos = 1;
+    for(let a = game.currentCard ; a < game.currentCard + (game.players.length * 2) ; a ++){
+         cards.push(game.cards[a]);
+         if(player.pos == pos++){
+            player.c1 = cards[a];
+         }
+    }
+    pos = 1;
+    for(let a = parseInt(cards.length / 2) ; a < cards.length ; a ++){
+        if(player.pos == pos++){
+            player.c2 = cards[a];
+         }
+    }
+
+    game.currentCard+= cards.length;
+
+    if(game.currentCard > (game.cards.length - (game.players.length * 2))){
+        game.currentCard = 3;
+    }
+    
+
+}
+
 
 function init(){
     elem = getElem("table");
     let pos = player.pos;
     for(let a = 1 ; a < elem.children.length ; a++){
+        elem.children[a].classList.add('hide');
         elem.children[a].id = "p" + pos++;
         if(pos > 5){
             pos = 1;
         }
     }
 }
-
-//createGame();
 
 function showGame(){
     let elem = getElem("game-info");
@@ -41,8 +79,24 @@ function showGame(){
             elem.classList.remove('hide');
             elem.children[0].children[0].innerText = game.players[a].name;
             elem.children[0].children[1].innerText = game.players[a].value;
+            elem.classList.remove('current');
         }
     }
+
+    if(game.status == "A"){
+        const index = game.players.findIndex(objeto => objeto.pos === player.pos);
+        if(game.players[index].host){
+            getElem("div-start-game").style.display = "flex";
+        }else{
+            hide("div-start-game");
+        }
+        return;
+    }
+
+    elem = getElem("p" + game.currentPlayer);
+    elem.classList.add('current');
+   
+
 }
 
 function createGame(){
@@ -54,9 +108,12 @@ function createGame(){
     shuffleCards(cards);
 
     player = {
-        game : 0,
-        pos : 1   
+        idGame : 0,
+        pos : 1 ,
+        c1  : 0,
+        c2  : 0
     }
+
     game = {
         idGame : 0,
         buyin : 100,
@@ -70,7 +127,7 @@ function createGame(){
         cards : cards,
         currentCard : 0,
         players : [
-            {pos : 1, value :100, status:1, name:"Cell", ia: false}
+            {pos : 1, value :100, status:1, name:"Cell", ia: false, host: true}
         ]
     };
     
@@ -79,6 +136,7 @@ function createGame(){
         if ( ws.readyState == 4 && ws.status == 200 ) {
              resp = JSON.parse(ws.responseText);
              game.idGame = resp.idGame;
+             player.idGame = game.idGame;
              init();
              showGame();
         }
@@ -93,10 +151,12 @@ function getGame(actionType){
     ws.onreadystatechange = function(){
         if ( ws.readyState == 4 && ws.status == 200 ) {
             let resp = JSON.parse(ws.responseText);
-            game = resp.game;
-            game.idGame = resp.idGame;
+            if(resp.status == 1){
+                game = resp.game;
+                game.idGame = resp.idGame;
 
-            enterGame();
+                enterGame();
+            }
         }
     }
     ws.send(JSON.stringify({idGame : form.idGame.value}));
@@ -108,7 +168,9 @@ function enterGame(){
 
     player = {
         idGame : game.idGame,
-        pos : parseInt(form.idPlayer.value)   
+        pos : parseInt(form.idPlayer.value),
+        c1 : 0,
+        c2 : 0
     }
     // verifica se player já esta no jogo, caso não adiciona.
     const index = game.players.findIndex(objeto => objeto.pos === player.pos);
@@ -119,7 +181,8 @@ function enterGame(){
              value :  game.buyin,
              status : 1,
              name : getNamePlayers(player.pos),
-             ia : false
+             ia : false,
+             host:false
         });        
     } 
     init();
@@ -127,7 +190,20 @@ function enterGame(){
     
     sendMessage(JSON.stringify({
          action : "Enter",
-         gameId : 1,
-         game   : game.idGame
+         idGame : game.idGame,
+         game   : game
      }));
+
+     saveGame();
+}
+
+function startGame(){
+    if(game.status == "A" && game.players.length == 1) {
+        openModal("Número de jogadores insuficiente para iniciar a partida!");
+        return;
+    }
+    game.status = "N";
+    hide("div-start-game");
+    dealCards();
+    showGame();
 }

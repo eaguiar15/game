@@ -97,4 +97,15 @@ getElem("slider-bet").addEventListener('input', function() {
   getElem("money-bet").innerText = parseFloat(this.value).toFixed(2);  
 });
 
+function openModal(pText) {
+  var modal = document.getElementById('myModal');
+  modal.children[0].children[1].innerText = pText;
+  modal.style.display = 'block';
+
+}
+
+function closeModal() {
+  var modal = document.getElementById('myModal');
+  modal.style.display = 'none';
+}
 
