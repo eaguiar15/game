@@ -3,16 +3,13 @@ function saveGame(){
     ws.onreadystatechange = function(){
         if ( ws.readyState == 4 && ws.status == 200 ) {
             console.log(ws.responseText);
-            /*let resp = JSON.parse(ws.responseText);
-            if(resp.status == 1){
-                
-            }*/
         }
     }
     ws.send(JSON.stringify({idGame : game.idGame, game : game}));
 }
 
 function showPotCard(pCard){
+    getElem("card-pot").classList.remove("hide");
     getElem("verse-card").style.backgroundImage = "url('./img/cards/" + pCard + ".png')";
     const card = document.getElementById('card-pot');
     card.classList.toggle('flipper');
@@ -27,32 +24,6 @@ function shuffleCards(cards){
     }
 }
 
-function dealCards(){
-    let cards = [];
-    let pos = 1;
-    for(let a = game.currentCard ; a < game.currentCard + (game.players.length * 2) ; a ++){
-         cards.push(game.cards[a]);
-         if(player.pos == pos++){
-            player.c1 = cards[a];
-         }
-    }
-    pos = 1;
-    for(let a = parseInt(cards.length / 2) ; a < cards.length ; a ++){
-        if(player.pos == pos++){
-            player.c2 = cards[a];
-         }
-    }
-
-    game.currentCard+= cards.length;
-
-    if(game.currentCard > (game.cards.length - (game.players.length * 2))){
-        game.currentCard = 3;
-    }
-    
-
-}
-
-
 function init(){
     elem = getElem("table");
     let pos = player.pos;
@@ -62,6 +33,76 @@ function init(){
         if(pos > 5){
             pos = 1;
         }
+    }
+    elem = getElem("give-cards");
+    pos = player.pos;
+    for(let a = 0 ; a < elem.children.length ; a++){
+        elem.children[a].id = "give-cards-p" + pos++;
+        if(pos > 5){
+            pos = 1;
+        }
+    } 
+}
+
+async function dealCards(){
+    let cards = [];
+    for(let a = game.currentCard ; a < game.currentCard + (game.players.length * 2) ; a ++){
+         cards.push(game.cards[a]);
+    }
+    const index = game.players.findIndex(objeto => objeto.pos === player.pos);
+    player.c1 = cards[index * 2];
+    player.c2 = cards[index * 2 + 1];
+
+    game.currentCard+= cards.length;
+
+    if(game.currentCard > (game.cards.length - (game.players.length * 2))){
+        game.currentCard = 3;
+    }
+    
+    for(let a in game.players){
+        getElem("give-cards-p" + game.players[a].pos).classList.remove("hide");
+    }
+
+    await sleep(800);
+
+    for(let a = 0 ; a < elem.children.length ; a++){
+        elem.children[a].classList.add("hide");
+    }
+
+    for(let a in game.players){
+        if(game.players[a].status == 1){
+            let elem = getElem("p" + game.players[a].pos);
+            elem.children[2].classList.remove("hide");
+            setCards(player.pos,player.c1,player.c2);
+        }
+    }
+
+    showPotCard(-1);
+
+}
+
+function play(play){
+    if(play == 0){ // fold 
+        playset = {
+            action  : "fold",
+            c1      : 0,
+            c2      : 0,
+            potCard : 0,
+            from    : player.pos
+        }
+        let index = game.players.findIndex(objeto => objeto.pos > player.pos);
+        if(index == -1){
+            index = 0;
+        }
+        game.currentPlayer = game.players[index].pos;
+
+        showGame();
+        sendMessage(JSON.stringify({
+            action : "showGame",
+            idGame : game.idGame,
+            game   : game,
+            playset : playset
+        }));
     }
 }
 
@@ -93,9 +134,23 @@ function showGame(){
         return;
     }
 
+    if(typeof playset !== 'undefined'){
+        if(playset.action == "fold"){
+            let elem = getElem("p" + playset.from);
+            elem.children[2].classList.add("hide");
+        }
+    }
+
     elem = getElem("p" + game.currentPlayer);
     elem.classList.add('current');
-   
+    if(player.pos == game.currentPlayer){
+        setTimeout(function() {
+            getElem("bet-action").classList.remove("hide");
+        }, 1100);
+    }else{
+        getElem("bet-action").classList.add("hide");
+    }
+    
 
 }
 
@@ -175,7 +230,7 @@ function enterGame(){
     // verifica se player já esta no jogo, caso não adiciona.
     const index = game.players.findIndex(objeto => objeto.pos === player.pos);
 
-    if (index === -1) {
+    if (index === -1) { // só avisa outros players, se jogador ainda não estiver na mesa...
         game.players.push({
              pos : player.pos,
              value :  game.buyin,
@@ -183,18 +238,19 @@ function enterGame(){
              name : getNamePlayers(player.pos),
              ia : false,
              host:false
-        });        
+        });  
+        sendMessage(JSON.stringify({
+            action : "Enter",
+            idGame : game.idGame,
+            game   : game
+        }));
+   
+        saveGame();      
     } 
     init();
     showGame();
     
-    sendMessage(JSON.stringify({
-         action : "Enter",
-         idGame : game.idGame,
-         game   : game
-     }));
-
-     saveGame();
+    
 }
 
 function startGame(){
@@ -205,5 +261,10 @@ function startGame(){
     game.status = "N";
     hide("div-start-game");
     dealCards();
+    sendMessage(JSON.stringify({
+        action : "dealCards",
+        idGame : game.idGame,
+        game   : game
+    }));
     showGame();
 }

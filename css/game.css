@@ -212,7 +212,7 @@
 
 .player-cards :first-child, .player-cards-others :first-child {
     margin-left:50px;
-    background-image: url('../img/cards/3.png') ;
+    background-image: url('../img/cards/-1.png') ;
 }
 .player-cards :first-child:hover{
     z-index: 2;
@@ -220,7 +220,7 @@
 
 .player-cards :last-child,  .player-cards-others :last-child{
     margin-left:75px; 
-    background-image: url('../img/cards/14.png') ;
+    background-image: url('../img/cards/-1.png') ;
 }
 
 .player-cards-others :first-child{

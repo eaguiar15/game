@@ -24,12 +24,22 @@ function onMessage(evt){
     writeLog('RESPONSE: ' + evt.data);
     try{
         let resp = JSON.parse(evt.data);
-        if(resp.idGame == getNamePlayers.idGame){
+        if(resp.idGame == player.idGame){
             switch (resp.action) {
                 case "Enter":
                     game = resp.game;
                     showGame();
                     break;
+                case "dealCards":
+                      game = resp.game;
+                      dealCards();
+                      showGame();
+                      break;
+                case "showGame":
+                  game = resp.game;
+                  playset = resp.playset;
+                  showGame();
+                  break;
             
                 default:
                     break;

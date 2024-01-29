@@ -298,3 +298,39 @@ form select{
 	justify-content: center;
 }
 
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+     /* background-color: rgba(0, 0, 0, 0.5);   */
+}
+
+.modal-content {
+    background: black;
+	opacity: .5;
+	color:lightgreen;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: white;
+}
+

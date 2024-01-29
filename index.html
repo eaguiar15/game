@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="container">
-	<div id="tab-menu" style="display:none">
+	<div id="tab-menu" style="display:block">
 		<div class="btn btn-primary" onclick="menu(this)">
 		  <span >Criar Partida</span>
 		</div>
@@ -65,7 +65,7 @@
 				<label>ID Jogo</label>
 			</div>
 			<div>
-            	<input type="number" name="idGame" placeholder="Informe o ID do Jogo" required>
+            	<input value=2 type="number" name="idGame" placeholder="Informe o ID do Jogo" required>
 			</div>
 			<div>
 				<label>Player</label>
@@ -86,21 +86,26 @@
 		</form>
 		
 	</div>
-	<div class="box" id="tab-table-game" style="display:block"> 
+	<div class="box" id="tab-table-game" style="display:none"> 
 		<div class="table" id="table"> 
 			<div class="table-in"> 
 				<div class="club-name">FLOP NUTS</div>
 				<div class="card-pot-empty"></div>   
-				<div class="card-pot hide" onclick="showPotCard(5)" id="card-pot">
+				<div class="card-pot hide" onclick="showPotCard(-1)" id="card-pot">
 					<div class="wrapper"> 
 						<div class="content front" id="front-card"></div>
 						<div class="content verse" id="verse-card"></div>
 					</div>  
 				</div>   
-				<div class="give-card give-card-animation-p1 hide"></div>  
-				<div class="give-card give-card-animation-p2 hide"></div> 
+				<div id="give-cards">
+					<div class="give-card give-card-animation-p1 hide"></div>  
+					<div class="give-card give-card-animation-p2 hide"></div> 
+					<div class="give-card give-card-animation-p3 hide"></div> 
+					<div class="give-card give-card-animation-p4 hide"></div> 
+					<div class="give-card give-card-animation-p5 hide"></div> 
+				</div>
 				<div class="pot-value  hide">25.00 </div> 
-				<div class="game-info" id="game-info">
+				<div class="game-info" id="game-info"> 
 					<div>Blind: 0 / 0</div>
 					<div>Buy in: 0</div>
 					<div>Rodada: 14</div>
@@ -195,13 +200,13 @@
 		
 	</div>
 </div>
-<div id="bet"  style="display:none">
-	<div class="bet hide"  >
+<div id="bet"  >
+	<div class="bet hide" id="bet-action" >
 		 <div>
 
 		</div> 
 		<div>
-			<div class="btn btn-danger">
+			<div class="btn btn-danger" onclick="play(0)">
 				<span>Fold</span>
 			</div>
 			<div>
@@ -209,7 +214,7 @@
 					0.00
 				</span> 
 			</div>
-			<div class="btn btn-secondary">
+			<div class="btn btn-secondary" onclick="play(1)">
 				<span>Bet</span>
 			</div> 
 		</div> 
@@ -241,6 +246,12 @@
 		<i class="fas fa-desktop" title="Tela Cheia" onclick="toggleFullScreen()"></i>
 	</div>
 
+</div>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p>Conteúdo do Modal aqui</p>
+    </div>
 </div>
 	
 </body>

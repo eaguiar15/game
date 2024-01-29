@@ -109,3 +109,9 @@ function closeModal() {
   modal.style.display = 'none';
 }
 
+function setCards(player,c1,c2){
+    let elem = getElem("p" + player);
+    elem.children[2].children[0].style.backgroundImage = "url('./img/cards/" + c1 + ".png')";
+    elem.children[2].children[1].style.backgroundImage = "url('./img/cards/" + c2 + ".png')";
+}
+

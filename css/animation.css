@@ -101,10 +101,26 @@
     animation-iteration-count: 2;  
 }
 
+.give-card-animation-p3{
+    animation: slide-p3 0.4s linear ; 
+    animation-iteration-count: 2;  
+}
+
+.give-card-animation-p4{
+    animation: slide-p4 0.4s linear ; 
+    animation-iteration-count: 2;  
+}
+
+.give-card-animation-p5{
+    animation: slide-p5 0.4s linear ; 
+    animation-iteration-count: 2;  
+}
+
 @keyframes slide-p1 {
     0% {    
         margin-top: 45px;
     }
+    
     50% {
         margin-top: 175px;
     }
@@ -129,14 +145,14 @@
 
 @keyframes slide-p2 {
     0% {
-        margin-top: 45px;
+        margin-top: 35px;
     }
     50% { 
-        margin-top: 125px;  
+        margin-top: 55px;  
     } 
     100% {  
-        margin-top: 200px;  
-        margin-left:470px;
+        margin-top: 90px;    
+        margin-left:515px;   
     } 
         
 }
@@ -155,3 +171,97 @@
         }
     }
 }
+
+@keyframes slide-p3 {
+    0% {
+        margin-top: 50px;    
+    }
+    50% {  
+        margin-top: -35px; 
+        margin-left:350px 
+    } 
+    100% {   
+        margin-top: -80px;    
+        margin-left:385px;   
+    } 
+        
+}
+
+@media (max-width: 600px) {  
+    @keyframes slide-p3 { 
+        0% {
+            margin-top: 55px;
+            margin-left: 100px;     
+        }
+         50% { 
+            margin-left:200px;   
+            margin-top: 50px;      
+        } 
+        100% {    
+            margin-left:300px;
+            margin-top: 45px;      
+        }
+    }
+}
+
+@keyframes slide-p4 {
+    0% {
+        margin-top: 50px;    
+    }
+    50% {  
+        margin-top: -35px; 
+        margin-left:100px 
+    } 
+    100% {   
+        margin-top: -80px;    
+        margin-left:50px;     
+    } 
+        
+}   
+
+@media (max-width: 600px) {     
+    @keyframes slide-p4 {  
+        0% {
+            margin-top: 65px; 
+            margin-left: 100px;        
+        }
+         50% { 
+             margin-left:50px;     
+        } 
+         100% {       
+             margin-left:-30px;
+        }
+    }
+}
+
+@keyframes slide-p5 {
+    0% { 
+        margin-top: 30px;      
+    }
+    50% {  
+        margin-top: 45px;       
+        margin-left:100px 
+    } 
+    100% {   
+        margin-top: 75px;    
+        margin-left:-50px;     
+    } 
+         
+}   
+
+@media (max-width: 600px) {     
+    @keyframes slide-p5 {  
+        0% {
+            margin-top: 65px; 
+            margin-left: 100px;        
+        }
+         50% { 
+             margin-left:50px;     
+        } 
+         100% {       
+             margin-left:-30px;
+             margin-top:300px;
+        }    
+    }
+}
+
