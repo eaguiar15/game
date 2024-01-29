@@ -414,7 +414,7 @@
 
     }
     .p1{
-        left:calc(300px / 2 - (60px / 2) + 5px);
+        left:calc(300px / 2 - (60px / 2) + 0px);
         top:455px;
     }
     .p2{
