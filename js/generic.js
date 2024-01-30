@@ -55,7 +55,7 @@ function getParam(paramName) {
       case 1: return 'Cell'; 
       case 2: return 'Homer'; 
       case 3: return 'Joaquim'; 
-      case 4: return 'Sr. Burns'; 
+      case 4: return 'Proton'; 
       case 5: return 'Sr. Kaioh'; 
     
       default: return 'Player'; 

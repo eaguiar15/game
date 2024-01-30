@@ -42,6 +42,9 @@ function init(){
             pos = 1;
         }
     } 
+    game.pot = 0;
+    //getElem("pot-value").classList.add("hide");
+    
 }
 
 async function dealCards(){
@@ -63,6 +66,15 @@ async function dealCards(){
         getElem("give-cards-p" + game.players[a].pos).classList.remove("hide");
     }
 
+    if(game.pot == 0){
+        for(let a in game.players){
+            if(game.players[a].status == 1){
+                game.pot+=game.blind;
+                game.players[a].value-=game.blind;
+            }
+        }
+    }
+    getElem("slider-bet").max = game.pot;
     await sleep(800);
 
     for(let a = 0 ; a < elem.children.length ; a++){
@@ -77,6 +89,11 @@ async function dealCards(){
         }
     }
 
+    elem = getElem("pot-value");
+    if(game.pot != 0){
+        elem.classList.remove("hide");
+    }
+    elem.innerText = game.pot.toFixed(2);
     showPotCard(-1);
 
 }
@@ -112,6 +129,7 @@ function showGame(){
     elem.children[1].innerText = "Buy in: " + game.buyin;
     elem.children[2].innerText = "Rodada: " + game.round;
     elem.children[3].innerText = "Game: #" + game.idGame;
+    
 
     for(let a in  game.players){
         if(game.players[a].status == 1){
@@ -143,10 +161,11 @@ function showGame(){
 
     elem = getElem("p" + game.currentPlayer);
     elem.classList.add('current');
+
     if(player.pos == game.currentPlayer){
-        setTimeout(function() {
+        //setTimeout(function() {
             getElem("bet-action").classList.remove("hide");
-        }, 1100);
+        //}, 1100);
     }else{
         getElem("bet-action").classList.add("hide");
     }
@@ -192,11 +211,13 @@ function createGame(){
              resp = JSON.parse(ws.responseText);
              game.idGame = resp.idGame;
              player.idGame = game.idGame;
+             openModal("Criado Jogo #" + player.idGame + " aguarde a entrada de outros players!");
              init();
              showGame();
         }
     }
     ws.send(JSON.stringify(game));
+    
 }
 
 function getGame(actionType){
@@ -244,11 +265,18 @@ function enterGame(){
             idGame : game.idGame,
             game   : game
         }));
-   
+        init();
+        showGame();
         saveGame();      
-    } 
-    init();
-    showGame();
+    }else{
+        sendMessage(JSON.stringify({
+            action : "getGame",
+            idGame : game.idGame
+        }));
+    }
+    //init();
+
+    //showGame();
     
     
 }
