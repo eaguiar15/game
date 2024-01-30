@@ -13,7 +13,6 @@ function showPotCard(pCard){
     getElem("verse-card").style.backgroundImage = "url('./img/cards/" + pCard + ".png')";
     const card = document.getElementById('card-pot');
     card.classList.toggle('flipper');
-    console.log("passou aqui...");
 }
 
 function shuffleCards(cards){
@@ -44,7 +43,6 @@ function init(){
         }
     } 
     game.pot = 0;
-    
     
 }
 
@@ -161,6 +159,12 @@ function play(play){
         playset.dealcards = true;
     }
 
+    for(let a in game.players){ // remove player 
+        if(game.players[a].value <= 0){
+            game.players.splice(a, 1);
+        }
+    }
+
     sendMessage(JSON.stringify({
         action : "showGame",
         idGame : game.idGame,
@@ -193,6 +197,8 @@ async function showGame(){
             elem.children[0].children[0].innerText = game.players[a].name;
             elem.children[0].children[1].innerText = game.players[a].value;
             elem.classList.remove('current');
+        }else{
+            elem.classList.add('hide');
         }
     }
 
