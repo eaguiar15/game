@@ -1,4 +1,4 @@
-var wsUri = "wss://socketsbay.com/wss/v2/5/5ce2f24dbca97556bfde0cc50bff65ea/";
+//var wsUri = "wss://socketsbay.com/wss/v2/5/5ce2f24dbca97556bfde0cc50bff65ea/";
 //var wsUri = "wss://socketsbay.com/wss/v2/1/demo/";
 // https://piehost.com/pricing
 var wsUri = "wss://free.blr2.piesocket.com/v3/1?api_key=bvOiuR0Adlo6o6tEAvzZlSc9Ln4ejVsqDBnqUzl4&notify_self=0";

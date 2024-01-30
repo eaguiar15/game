@@ -115,3 +115,10 @@ function setCards(player,c1,c2){
     elem.children[2].children[1].style.backgroundImage = "url('./img/cards/" + c2 + ".png')";
 }
 
+function getCard(pCard){
+  let card = pCard % 13;
+  if(card == 0){
+      return 13;
+  }
+  return card;
+}

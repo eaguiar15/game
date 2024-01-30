@@ -13,6 +13,7 @@ function showPotCard(pCard){
     getElem("verse-card").style.backgroundImage = "url('./img/cards/" + pCard + ".png')";
     const card = document.getElementById('card-pot');
     card.classList.toggle('flipper');
+    console.log("passou aqui...");
 }
 
 function shuffleCards(cards){
@@ -43,11 +44,14 @@ function init(){
         }
     } 
     game.pot = 0;
-    //getElem("pot-value").classList.add("hide");
+    
     
 }
 
 async function dealCards(){
+    if(game.status == "A"){
+        return;
+    }
     let cards = [];
     for(let a = game.currentCard ; a < game.currentCard + (game.players.length * 2) ; a ++){
          cards.push(game.cards[a]);
@@ -62,6 +66,8 @@ async function dealCards(){
         game.currentCard = 3;
     }
     
+    getElem("card-pot").classList.add("hide");
+
     for(let a in game.players){
         getElem("give-cards-p" + game.players[a].pos).classList.remove("hide");
     }
@@ -77,8 +83,10 @@ async function dealCards(){
     getElem("slider-bet").max = game.pot;
     await sleep(800);
 
-    for(let a = 0 ; a < elem.children.length ; a++){
-        elem.children[a].classList.add("hide");
+    getElem("card-pot").classList.remove("hide");
+
+    for(let a in game.players){
+        getElem("give-cards-p" + game.players[a].pos).classList.add("hide");
     }
 
     for(let a in game.players){
@@ -91,11 +99,11 @@ async function dealCards(){
 
     elem = getElem("pot-value");
     if(game.pot != 0){
-        elem.classList.remove("hide");
-    }
+         elem.classList.remove("hide");
+    } 
     elem.innerText = game.pot.toFixed(2);
-    showPotCard(-1);
-
+    
+    
 }
 
 function play(play){
@@ -105,30 +113,76 @@ function play(play){
             c1      : 0,
             c2      : 0,
             potCard : 0,
-            from    : player.pos
+            from    : player.pos,
+            dealcards : false
         }
-        let index = game.players.findIndex(objeto => objeto.pos > player.pos);
-        if(index == -1){
-            index = 0;
-        }
-        game.currentPlayer = game.players[index].pos;
-
-        showGame();
-        sendMessage(JSON.stringify({
-            action : "showGame",
-            idGame : game.idGame,
-            game   : game,
-            playset : playset
-        }));
     }
+
+    if(play == 1){ // bet
+        playset = {
+            action  : "bet",
+            c1      : player.c1,
+            c2      : player.c2,
+            potCard : game.cards[game.currentCard],
+            from    : player.pos,
+            bet   :   parseFloat(getElem("slider-bet").value),
+            winner  : false,
+        }
+        let c1 = getCard(playset.c1);
+        let c2 = getCard(playset.c2);
+        let pot = getCard(playset.potCard);
+
+        if( (pot > c1 && pot < c2) ||
+            (pot > c2 && pot < c1)){
+            playset.winner = true;
+        }
+
+        const index = game.players.findIndex(objeto => objeto.pos === player.pos);
+        
+        if(playset.winner){
+            game.players[index].value+=playset.bet;
+            game.pot-=playset.bet;
+        }else{
+            game.players[index].value-=playset.bet;
+            game.pot+=playset.bet;
+        }
+        console.log(playset);
+    }
+
+    let index = game.players.findIndex(objeto => objeto.pos > player.pos);
+    if(index == -1){
+        index = 0;
+    }
+    game.currentPlayer = game.players[index].pos;
+
+    game.play++;
+    game.round = parseInt(game.play / game.players.length);
+    if(game.play % game.players.length == 0 || game.pot == 0){
+        playset.dealcards = true;
+    }
+
+    sendMessage(JSON.stringify({
+        action : "showGame",
+        idGame : game.idGame,
+        game   : game,
+        playset : playset
+    }));
+    showGame();
+    
 }
 
-function showGame(){
+async function showGame(){
     let elem = getElem("game-info");
     elem.children[0].innerText = "Blind: " + game.blind + " / 10";
     elem.children[1].innerText = "Buy in: " + game.buyin;
     elem.children[2].innerText = "Rodada: " + game.round;
     elem.children[3].innerText = "Game: #" + game.idGame;
+    
+    elem = getElem("pot-value");
+    if(game.pot != 0){
+        elem.classList.remove("hide");
+    }
+    elem.innerText = game.pot.toFixed(2);
     
 
     for(let a in  game.players){
@@ -156,16 +210,57 @@ function showGame(){
         if(playset.action == "fold"){
             let elem = getElem("p" + playset.from);
             elem.children[2].classList.add("hide");
+            elem.children[1].classList.remove("hide");
+            elem.children[1].innerText = "Fold"; 
+            
+            setTimeout(function() { 
+                elem.children[1].classList.add("hide");
+            }, 3000); 
+             
+            getElem("p" + game.currentPlayer).classList.add('current');
+            if(playset.dealcards){
+                dealCards();
+            }
         }
+        if(playset.action == "bet"){
+            let elem = getElem("p" + playset.from);
+            elem.children[1].classList.remove("hide");
+            elem.children[1].innerText = playset.bet.toFixed(2);
+            await sleep(700);
+            showPotCard(playset.potCard);
+            await sleep(1000); 
+            if(playset.winner){
+                elem.classList.add("win-move");
+            }else{
+                elem.classList.add("loss-move");
+            }
+            elem.children[2].classList.add("hide");
+            await sleep(500);
+            if(playset.dealcards){
+                dealCards();
+            }
+            elem.children[1].classList.add("hide");
+
+            getElem("p" + game.currentPlayer).classList.add('current');
+           
+            setTimeout(function() { 
+                elem.classList.remove("win-move");
+                elem.classList.remove("loss-move");
+                showPotCard();
+            }, 3000); 
+
+            getElem("slider-bet").value = 0;
+        }
+        
+    }else{ // primeira jogada, quando da cartas.
+        elem = getElem("p" + game.currentPlayer);
+        elem.classList.add('current');
     }
 
-    elem = getElem("p" + game.currentPlayer);
-    elem.classList.add('current');
+    
 
     if(player.pos == game.currentPlayer){
-        //setTimeout(function() {
-            getElem("bet-action").classList.remove("hide");
-        //}, 1100);
+        getElem("bet-action").classList.remove("hide");
     }else{
         getElem("bet-action").classList.add("hide");
     }
@@ -269,14 +364,14 @@ function enterGame(){
         showGame();
         saveGame();      
     }else{
+        
         sendMessage(JSON.stringify({
             action : "getGame",
             idGame : game.idGame
         }));
     }
-    //init();
-
-    //showGame();
+    init();
+    showGame();
     
     
 }
@@ -288,11 +383,11 @@ function startGame(){
     }
     game.status = "N";
     hide("div-start-game");
-    dealCards();
     sendMessage(JSON.stringify({
         action : "dealCards",
         idGame : game.idGame,
         game   : game
     }));
+    dealCards();
     showGame();
 }
