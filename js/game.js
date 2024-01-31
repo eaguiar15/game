@@ -79,9 +79,9 @@ async function dealCards(){
         }
     }
     getElem("slider-bet").max = game.pot;
-    //if(game.players[index].value < game.pot){
-    //    getElem("slider-bet").max = game.players[index].value ;
-    //}
+    if(game.players[index].value < game.pot){
+        getElem("slider-bet").max = game.players[index].value ;
+    }
     await sleep(800);
 
     getElem("card-pot").classList.remove("hide");
@@ -114,7 +114,8 @@ function play(play){
             c1      : 0,
             c2      : 0,
             potCard : 0,
-            from    : player.pos,
+            // from    : player.pos,
+            from    : game.currentPlayer,
             dealcards : false
         }
     }
@@ -125,7 +126,8 @@ function play(play){
             c1      : player.c1,
             c2      : player.c2,
             potCard : game.cards[game.currentCard],
-            from    : player.pos,
+            //from    : player.pos,
+            from    : game.currentPlayer,
             bet   :   parseFloat(getElem("slider-bet").value),
             died  :   -1
             
@@ -139,7 +141,8 @@ function play(play){
             playset.winner = true;
         }
 
-        const index = game.players.findIndex(objeto => objeto.pos === player.pos);
+        //const index = game.players.findIndex(objeto => objeto.pos === player.pos);
+        const index = game.players.findIndex(objeto => objeto.pos === game.currentPlayer);
         
         if(playset.winner){
             game.players[index].value+=playset.bet;
@@ -149,12 +152,15 @@ function play(play){
             game.pot+=playset.bet;
         }
     }
+    let index = game.players.findIndex(objeto => objeto.pos === player.pos);
     getElem("slider-bet").max = game.pot;
+    
     if(game.players[index].value < game.pot){
         getElem("slider-bet").max = game.players[index].value ;
     }
-    
-    let index = game.players.findIndex(objeto => objeto.pos > player.pos);
+    // the next player
+    // index = game.players.findIndex(objeto => objeto.pos > player.pos);
+    index = game.players.findIndex(objeto => objeto.pos > game.currentPlayer);
     if(index == -1){
         index = 0;
     }
@@ -168,6 +174,7 @@ function play(play){
 
     for(let a in game.players){ // remove player 
         if(game.players[a].value <= 0){
+            alert("removeu?");
             playset.died = game.players[a].pos;
             game.players.splice(a, 1);
 
@@ -227,6 +234,7 @@ async function showGame(){
 
     if(typeof playset !== 'undefined'){
         if(playset.action == "fold"){
+
             let elem = getElem("pot-value");
             elem.classList.remove("hide");
             elem.innerText = game.pot.toFixed(2);
@@ -293,10 +301,70 @@ async function showGame(){
     }else{
         getElem("bet-action").classList.add("hide");
     }
+    beckenkampAI();
+}
 
+async function beckenkampAI(){ 
+    let index =  game.players.findIndex(objeto => objeto.pos === game.currentPlayer);
+    if(game.players[index].ia == true){
+       let cards = [];
+       for(let a = game.currentCard ; a < game.currentCard + (game.players.length * 2) ; a ++){
+           cards.push(game.cards[a]);
+       }
+       player.c1 = cards[index * 2];
+       player.c2 = cards[index * 2 + 1];
+
+           let delta =  Math.abs(getCard(player.c1) - getCard(player.c2));
+           let pot   = game.pot;
+           let bet   = 0;
+           if(game.players[index].value < pot){
+               pot = game.players[index].value;
+           }
+           
+           console.log(delta);
+           console.log(bet);
+           switch (delta) {
+           case 12:
+               bet = pot;
+               break;
+           case 11:
+               bet = pot * 0.9;
+               break;
+           case 10:
+               bet = pot * 0.8;
+               break;
+           case  9:
+               bet = pot * 0.7;
+               break;
+           case  8:
+               bet = pot * 0.6;
+               break;
+           case  7:
+               bet = pot * 0.4;
+               break;
+           case  6:
+               bet = pot * 0.3;
+               break;
+           
+           default:
+               bet = 0;
+               break;
+           }
+       if(bet == 0){
+           await sleep(2500);
+           play(0);
+           return;
+       }
+       
+       await sleep(3500);
+       getElem("slider-bet").value = bet;
+       play(1);
+       
+   }  
 }
 
 function createGame(){
+    let   form = getElem("form-create-game");
     let   cards = [];
 
     for(let a=0;a <52 ; a++){
@@ -310,22 +378,34 @@ function createGame(){
         c1  : 0,
         c2  : 0
     }
+    ias = [{pos : 1, value :parseFloat(form.buyin.value), status:1, name:getNamePlayers(1), ia: false, host: true}];
 
-    game = {
+    for (let a in form.ias.options) {
+        if(form.ias.options[a].selected){
+            ias.push({
+                pos : parseInt(form.ias.options[a].value), 
+                value : parseFloat(form.buyin.value), 
+                status: 1, 
+                name: getNamePlayers(parseInt(form.ias.options[a].value)), 
+                ia: true, 
+                host: false
+            });
+        }
+    }
+
+    game = { 
         idGame : 0,
-        buyin : 100,
+        buyin : parseFloat(form.buyin.value),
         pot  : 0,
-        blind : 2.5,
+        blind : parseFloat(form.blind.value),
         status : "A",
         round : 0,
         play  : 0,
         currentPlayer : 1,
-        currentBlind : 2.5,
+        currentBlind : parseFloat(form.blind.value),
         cards : cards,
         currentCard : 0,
-        players : [
-            {pos : 1, value :100, status:1, name:"Cell", ia: false, host: true}
-        ]
+        players : ias
     };
     
     initWS("games.php?p=create","POST"); 
