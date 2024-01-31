@@ -79,9 +79,9 @@ async function dealCards(){
         }
     }
     getElem("slider-bet").max = game.pot;
-    if(game.players[index].value < game.pot){
-        getElem("slider-bet").max = game.players[index].value ;
-    }
+    //if(game.players[index].value < game.pot){
+    //    getElem("slider-bet").max = game.players[index].value ;
+    //}
     await sleep(800);
 
     getElem("card-pot").classList.remove("hide");
