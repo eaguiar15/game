@@ -79,6 +79,9 @@ async function dealCards(){
         }
     }
     getElem("slider-bet").max = game.pot;
+    if(game.players[index].value < game.pot){
+        getElem("slider-bet").max = game.players[index].value ;
+    }
     await sleep(800);
 
     getElem("card-pot").classList.remove("hide");
@@ -124,7 +127,8 @@ function play(play){
             potCard : game.cards[game.currentCard],
             from    : player.pos,
             bet   :   parseFloat(getElem("slider-bet").value),
-            winner  : false,
+            died  :   -1
+            
         }
         let c1 = getCard(playset.c1);
         let c2 = getCard(playset.c2);
@@ -144,9 +148,12 @@ function play(play){
             game.players[index].value-=playset.bet;
             game.pot+=playset.bet;
         }
-        console.log(playset);
     }
-
+    getElem("slider-bet").max = game.pot;
+    if(game.players[index].value < game.pot){
+        getElem("slider-bet").max = game.players[index].value ;
+    }
+    
     let index = game.players.findIndex(objeto => objeto.pos > player.pos);
     if(index == -1){
         index = 0;
@@ -161,8 +168,20 @@ function play(play){
 
     for(let a in game.players){ // remove player 
         if(game.players[a].value <= 0){
+            playset.died = game.players[a].pos;
             game.players.splice(a, 1);
+
         }
+    }
+
+    if(game.players.length == 0){
+        openModal("Você perdeu infeliz!");
+        playset.dealcards = false;
+    }
+
+    if(game.players.length == 1 && game.pot <= 0){
+        openModal("Você ganhou seu jaguara!");
+        playset.dealcards = false;
     }
 
     sendMessage(JSON.stringify({
@@ -182,11 +201,7 @@ async function showGame(){
     elem.children[2].innerText = "Rodada: " + game.round;
     elem.children[3].innerText = "Game: #" + game.idGame;
     
-    elem = getElem("pot-value");
-    if(game.pot != 0){
-        elem.classList.remove("hide");
-    }
-    elem.innerText = game.pot.toFixed(2);
+    
     
 
     for(let a in  game.players){
@@ -197,8 +212,6 @@ async function showGame(){
             elem.children[0].children[0].innerText = game.players[a].name;
             elem.children[0].children[1].innerText = game.players[a].value;
             elem.classList.remove('current');
-        }else{
-            elem.classList.add('hide');
         }
     }
 
@@ -214,7 +227,11 @@ async function showGame(){
 
     if(typeof playset !== 'undefined'){
         if(playset.action == "fold"){
-            let elem = getElem("p" + playset.from);
+            let elem = getElem("pot-value");
+            elem.classList.remove("hide");
+            elem.innerText = game.pot.toFixed(2);
+
+            elem = getElem("p" + playset.from);
             elem.children[2].classList.add("hide");
             elem.children[1].classList.remove("hide");
             elem.children[1].innerText = "Fold"; 
@@ -229,6 +246,10 @@ async function showGame(){
             }
         }
         if(playset.action == "bet"){
+            if(playset.died != -1){
+                getElem("p" + playset.died).classList.add("hide");
+            }
+
             let elem = getElem("p" + playset.from);
             elem.children[1].classList.remove("hide");
             elem.children[1].innerText = playset.bet.toFixed(2);
@@ -241,6 +262,10 @@ async function showGame(){
                 elem.classList.add("loss-move");
             }
             elem.children[2].classList.add("hide");
+
+            getElem("pot-value").classList.remove("hide");
+            getElem("pot-value").innerText = game.pot.toFixed(2);
+
             await sleep(500);
             if(playset.dealcards){
                 dealCards();
@@ -263,14 +288,11 @@ async function showGame(){
         elem.classList.add('current');
     }
 
-    
-
     if(player.pos == game.currentPlayer){
         getElem("bet-action").classList.remove("hide");
     }else{
         getElem("bet-action").classList.add("hide");
     }
-    
 
 }
 

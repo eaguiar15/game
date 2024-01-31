@@ -122,3 +122,19 @@ function getCard(pCard){
   }
   return card;
 }
+
+function getCurrentTime() {
+    var currentDate = new Date();
+
+    var hours   = addZero(currentDate.getHours());
+    var minutes = addZero(currentDate.getMinutes());
+    var seconds = addZero(currentDate.getSeconds());
+
+    var formattedTime = hours + ":" + minutes + ":" + seconds;
+
+    return formattedTime;
+}
+
+function addZero(number) {
+    return (number < 10 ? '0' : '') + number;
+}

@@ -228,20 +228,12 @@
 		</div> 
 	</div>
 </div>
-<div id="console" style="display:none">
-	<div>10:40:12 > Partida Iniciada</div>
-	<div>10:40:12 > Partida Iniciada</div>
-	<div>10:40:12 > Partida Iniciada</div>
-	<div>10:40:12 > Partida Iniciada</div>
-	<div>10:40:12 > Partida Iniciada</div>
-	<div>10:40:12 > Partida Iniciada</div>
-	<div>10:40:12 > Partida Finalizada</div>
-</div>
+<div id="console" style="display:none"></div>
 <div id="footer">
 	<div id="text-message">
-		<input type="text" placeholder=">> Digite uma mensagem para enviar a outros players.">
-		<i class="fas fa-forward" title="Enviar Mensagem" ></i>
-		<i class="fas fa-eye" title="Ocultar console" onclick="showConsole(this)"></i>  
+		<input type="text" placeholder=">> Digite uma mensagem para enviar a outros players." onkeydown="if(event.key==='Enter')sendNotification(this)">
+		<i class="fas fa-forward" title="Enviar Mensagem" onclick="sendNotification(this.previousElementSibling)"></i>
+		<i class="fas fa-eye-slash" title="Ocultar console" onclick="showConsole(this)" id="icon-console"></i>  
 		<i class="fas fa-list" title="Menu" onclick="menu('')"></i>  
 		<i class="fas fa-desktop" title="Tela Cheia" onclick="toggleFullScreen()"></i>
 	</div>

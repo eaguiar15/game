@@ -27,6 +27,7 @@ function onMessage(evt){
     writeLog('RESPONSE: ' + evt.data);
     try{
         let resp = JSON.parse(evt.data);
+
         if(resp.idGame == player.idGame){
             switch (resp.action) {
                 case "Enter":
@@ -55,13 +56,29 @@ function onMessage(evt){
                     init();
                     dealCards();
                     showGame();
+                    break;
                 default:
                     break;
             }
          }
+         
     }catch(e){
-        
+
     }
+
+    try{
+        let resp = JSON.parse(evt.data);
+        switch (resp.action) {
+            case "notification":
+                setNotification(resp.from,resp.message);
+                break;
+            default:
+                break;
+        }
+    }catch(e){
+
+    }
+
 }
 
 function onError(evt){
@@ -79,4 +96,45 @@ function writeLog(message){
 }
 
 window.addEventListener("load", initSocket, false);
+
+/*window.addEventListener('beforeunload', function (event) {
+    var mensagem = 'Ao sair seu jogo sera encerrado?';
+    event.returnValue = mensagem;
+  return mensagem;
+});*/
+
+function sendNotification(pElem){
+    if(typeof player === 'undefined'){
+        setNotification('Visitante',pElem.value);
+        sendMessage(JSON.stringify({
+            action : "notification",
+            from   :  'Visitante',
+            message   : pElem.value,
+            idGame : 0
+         }));
+    }else{
+        setNotification(getNamePlayers(player.pos),pElem.value);
+        sendMessage(JSON.stringify({
+            action : "notification",
+            from   :  getNamePlayers(player.pos),
+            message   : pElem.value,
+            idGame : game.idGame 
+     }));
+    }
+    pElem.value = "";
+}
+
+function setNotification(pFrom,pValue){
+    elem = getElem("console");
+    elem.innerHTML+=
+        "<div>" + 
+            getCurrentTime() + " > " + pFrom + " > " + pValue +
+        "</div>";
+    elem.style.display = "block";
+    getElem("icon-console").setAttribute("class","fas fa-eye");
+}
+
+
+
+
 
