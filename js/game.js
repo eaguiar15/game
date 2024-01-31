@@ -73,8 +73,8 @@ async function dealCards(){
     if(game.pot == 0){
         for(let a in game.players){
             if(game.players[a].status == 1){
-                game.pot+=game.blind;
-                game.players[a].value-=game.blind;
+                game.pot+=game.currentBlind;
+                game.players[a].value-=game.currentBlind;
             }
         }
     }
@@ -171,10 +171,12 @@ function play(play){
     if(game.play % game.players.length == 0 || game.pot == 0){
         playset.dealcards = true;
     }
+    if(game.round % 10 == 0 && game.round > 0){
+        game.currentBlind+=game.blind; 
+    }
 
     for(let a in game.players){ // remove player 
         if(game.players[a].value <= 0){
-            alert("removeu?");
             playset.died = game.players[a].pos;
             game.players.splice(a, 1);
 
@@ -203,7 +205,7 @@ function play(play){
 
 async function showGame(){
     let elem = getElem("game-info");
-    elem.children[0].innerText = "Blind: " + game.blind + " / 10";
+    elem.children[0].innerText = "Blind: " + game.currentBlind + " / 10";
     elem.children[1].innerText = "Buy in: " + game.buyin;
     elem.children[2].innerText = "Rodada: " + game.round;
     elem.children[3].innerText = "Game: #" + game.idGame;
