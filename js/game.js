@@ -53,26 +53,35 @@ async function dealCards(){
         return;
     }
 
+    for(let a in game.players){ // remove player que não tem saldo suficiente para pagar o bind.
+        if(game.pot == 0 && game.players[a].value < game.blind){
+            if(game.currentPlayer == game.players[a].pos){
+                game.currentPlayer = game.players[0].pos;
+            }
+            game.players.splice(a, 1);
+        }
+    } 
+
     if(game.currentCard > (game.cards.length - (game.players.length * 2)) &&
        game.currentPlayer == player.pos 
       ){
+          game.cards = shuffleCards(game.cards);
+    }
+
+    if(game.currentCard > (game.cards.length - (game.players.length * 2))){    
         game.currentCard = 0;
-        game.cards = shuffleCards(game.cards);
     }
 
     let cards = [];
     for(let a = game.currentCard ; a < game.currentCard + (game.players.length * 2) ; a ++){
          cards.push(game.cards[a]);
     }
+    console.log(cards);
     const index = game.players.findIndex(objeto => objeto.pos === player.pos);
     player.c1 = cards[index * 2];
     player.c2 = cards[index * 2 + 1];
 
     game.currentCard+= cards.length;
-
-    /*if(game.currentCard > (game.cards.length - (game.players.length * 2))){
-        game.currentCard = 3;
-    }*/
     
     getElem("card-pot").classList.add("hide");
 
@@ -118,12 +127,14 @@ async function dealCards(){
 }
 
 function play(play){
+    let AI = false;
+
     if(play == 0){ // fold 
         playset = {
             action  : "fold",
             c1      : 0,
             c2      : 0,
-            potCard : 0,
+            potCard : 0, 
             // from    : player.pos,
             from    : game.currentPlayer,
             dealcards : false
@@ -154,6 +165,7 @@ function play(play){
         //const index = game.players.findIndex(objeto => objeto.pos === player.pos);
         const index = game.players.findIndex(objeto => objeto.pos === game.currentPlayer);
         
+        
         if(playset.winner){
             game.players[index].value+=playset.bet;
             game.pot-=playset.bet;
@@ -162,7 +174,15 @@ function play(play){
             game.pot+=playset.bet;
         }
     }
+    if(game.players[game.players.findIndex(objeto => objeto.pos === game.currentPlayer)].ia){
+        AI = true;
+    }
+    
     let index = game.players.findIndex(objeto => objeto.pos === player.pos);
+    if(game.players[index].value <= 0 && player.pos == game.currentPlayer){
+        openModal("Você perdeu infeliz!");
+    }
+
     getElem("slider-bet").max = game.pot;
     
     if(game.players[index].value < game.pot){
@@ -194,35 +214,37 @@ function play(play){
         }
     }
 
-    if(game.players.length == 0){
-        openModal("Você perdeu infeliz!");
-        playset.dealcards = false;
-    }
+   
 
     if(game.players.length == 1 && game.pot <= 0){
         openModal("Você ganhou seu jaguara!");
         playset.dealcards = false;
     }
 
-    sendMessage(JSON.stringify({
-        action : "showGame",
-        idGame : game.idGame,
-        game   : game,
-        playset : playset
-    }));
+    if(!AI){
+        sendMessage(JSON.stringify({
+            action : "showGame",
+            idGame : game.idGame,
+            game   : game,
+            playset : playset
+        }));
+    }
+
     showGame();
     
 }
 
 async function showGame(){
     let elem = getElem("game-info");
-    elem.children[0].innerText = "Blind: " + game.currentBlind + " / 10";
+    elem.children[0].innerText = "Blind: " + game.currentBlind + " / 5";
     elem.children[1].innerText = "Buy in: " + game.buyin;
     elem.children[2].innerText = "Rodada: " + game.round;
     elem.children[3].innerText = "Game: #" + game.idGame;
     
-    
-    
+    for(let a = 1 ; a < 5 ; a++){
+        let elem = getElem("p" + a);
+        elem.classList.add('hide');
+    }
 
     for(let a in  game.players){
         if(game.players[a].status == 1){
@@ -332,7 +354,7 @@ async function beckenkampAI(){
     let index =  game.players.findIndex(objeto => objeto.pos === game.currentPlayer);
     if(game.players[index].ia == true){
        let cards = [];
-       for(let a = game.currentCard ; a < game.currentCard + (game.players.length * 2) ; a ++){
+       for(let a = game.currentCard ; a < game.currentCard + (game.players.length * 2) + 4; a ++){
            cards.push(game.cards[a]);
        }
        player.c1 = cards[index * 2];
@@ -372,6 +394,9 @@ async function beckenkampAI(){
                bet = 0;
                break;
            }
+        if(game.players[index].value < 10 && delta > 6){
+            bet = pot;
+        }
        if(bet == 0){
            await sleep(2500);
            play(0);
