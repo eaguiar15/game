@@ -22,6 +22,8 @@ function shuffleCards(cards){
         cards[i] = cards[j];
         cards[j] = aux;
     }
+
+    return cards;
 }
 
 function init(){
@@ -50,6 +52,14 @@ async function dealCards(){
     if(game.status == "A"){
         return;
     }
+
+    if(game.currentCard > (game.cards.length - (game.players.length * 2)) &&
+       game.currentPlayer == player.pos 
+      ){
+        game.currentCard = 0;
+        game.cards = shuffleCards(game.cards);
+    }
+
     let cards = [];
     for(let a = game.currentCard ; a < game.currentCard + (game.players.length * 2) ; a ++){
          cards.push(game.cards[a]);
@@ -60,9 +70,9 @@ async function dealCards(){
 
     game.currentCard+= cards.length;
 
-    if(game.currentCard > (game.cards.length - (game.players.length * 2))){
+    /*if(game.currentCard > (game.cards.length - (game.players.length * 2))){
         game.currentCard = 3;
-    }
+    }*/
     
     getElem("card-pot").classList.add("hide");
 
@@ -125,7 +135,7 @@ function play(play){
             action  : "bet",
             c1      : player.c1,
             c2      : player.c2,
-            potCard : game.cards[game.currentCard],
+            potCard : game.cards[game.currentCard++],
             //from    : player.pos,
             from    : game.currentPlayer,
             bet   :   parseFloat(getElem("slider-bet").value),
@@ -159,7 +169,6 @@ function play(play){
         getElem("slider-bet").max = game.players[index].value ;
     }
     // the next player
-    // index = game.players.findIndex(objeto => objeto.pos > player.pos);
     index = game.players.findIndex(objeto => objeto.pos > game.currentPlayer);
     if(index == -1){
         index = 0;
@@ -170,9 +179,11 @@ function play(play){
     game.round = parseInt(game.play / game.players.length);
     if(game.play % game.players.length == 0 || game.pot == 0){
         playset.dealcards = true;
-    }
-    if(game.round % 10 == 0 && game.round > 0){
-        game.currentBlind+=game.blind; 
+        
+    } 
+
+    if(game.round % 5 == 0 && game.round > 0 && game.currentPlayer == player.pos){
+        game.currentBlind+=game.blind;  
     }
 
     for(let a in game.players){ // remove player 
@@ -219,7 +230,7 @@ async function showGame(){
             elem.style.backgroundImage =  "url('./img/players/p" + game.players[a].pos + ".jpg')";
             elem.classList.remove('hide');
             elem.children[0].children[0].innerText = game.players[a].name;
-            elem.children[0].children[1].innerText = game.players[a].value;
+            elem.children[0].children[1].innerText = game.players[a].value.toFixed(2);
             elem.classList.remove('current');
         }
     }
@@ -262,10 +273,19 @@ async function showGame(){
 
             let elem = getElem("p" + playset.from);
             elem.children[1].classList.remove("hide");
+
+            if(playset.from != player.pos){
+                elem.children[2].classList.add("hide"); // mini cards
+            }
+            
             elem.children[1].innerText = playset.bet.toFixed(2);
             await sleep(700);
             showPotCard(playset.potCard);
+            
             await sleep(1000); 
+            if(playset.from != player.pos)
+                setCardShow(playset.from,playset.c1,playset.c2); 
+            await sleep(500); 
             if(playset.winner){
                 elem.classList.add("win-move");
             }else{
@@ -278,6 +298,7 @@ async function showGame(){
 
             await sleep(500);
             if(playset.dealcards){
+                await sleep(500);
                 dealCards();
             }
             elem.children[1].classList.add("hide");
@@ -300,6 +321,7 @@ async function showGame(){
 
     if(player.pos == game.currentPlayer){
         getElem("bet-action").classList.remove("hide");
+        getElem("money-bet").innerText = "0.00";
     }else{
         getElem("bet-action").classList.add("hide");
     }
@@ -323,26 +345,24 @@ async function beckenkampAI(){
                pot = game.players[index].value;
            }
            
-           console.log(delta);
-           console.log(bet);
            switch (delta) {
            case 12:
                bet = pot;
-               break;
+               break; 
            case 11:
-               bet = pot * 0.9;
+               bet = pot * 1.0;
                break;
            case 10:
-               bet = pot * 0.8;
+               bet = pot * 1.0;
                break;
            case  9:
-               bet = pot * 0.7;
+               bet = pot * 0.9;
                break;
            case  8:
-               bet = pot * 0.6;
+               bet = pot * 0.7;
                break;
            case  7:
-               bet = pot * 0.4;
+               bet = pot * 0.5;
                break;
            case  6:
                bet = pot * 0.3;

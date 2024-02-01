@@ -115,6 +115,16 @@ function setCards(player,c1,c2){
     elem.children[2].children[1].style.backgroundImage = "url('./img/cards/" + c2 + ".png')";
 }
 
+function setCardShow(player,c1,c2){ 
+  let elem = getElem("p" + player);
+  elem.children[3].classList.remove("hide");
+  elem.children[3].children[0].style.backgroundImage = "url('./img/cards/" + c1 + ".png')";
+  elem.children[3].children[1].style.backgroundImage = "url('./img/cards/" + c2 + ".png')";
+  setTimeout(function() { 
+    elem.children[3].classList.add("hide");
+  }, 1500); 
+}
+
 function getCard(pCard){
   let card = pCard % 13;
   if(card == 0){
