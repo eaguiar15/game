@@ -354,7 +354,7 @@ async function beckenkampAI(){
     let index =  game.players.findIndex(objeto => objeto.pos === game.currentPlayer);
     if(game.players[index].ia == true){
        let cards = [];
-       for(let a = game.currentCard ; a < game.currentCard + (game.players.length * 2) + 4; a ++){
+       for(let a = game.currentCard ; a < game.currentCard + (game.players.length * 2) ; a ++){
            cards.push(game.cards[a]);
        }
        player.c1 = cards[index * 2];
